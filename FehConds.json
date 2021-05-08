@@ -1,0 +1,40 @@
+[
+    {
+        "type" : "Blow",
+        "text" : "unit initiates combat",
+        "flavor" : null,
+        "combat" : true,
+        "turn" : false,
+        "after" : true,
+        "always" : false,
+        "weight" : 2
+    },
+    {
+        "type" : "UnitHP",
+        "text" : "unit's HP %s",
+        "flavor" : [
+            { ">= 25%" : 2 },
+            { "= 100%" : 1 },
+            { "<= 75%" : 1 },
+            { "< 100%" : 12 }
+        ],
+        "combat" : true,
+        "turn" : true,
+        "after" : true,
+        "always" : true
+    },
+    {
+        "type" : "FoeHP",
+        "text" : "foe's HP %s",
+        "flavor" : [
+            { ">= 25%" : 2 },
+            { "= 100%" : 2 },
+            { "<= 75%" : 1 },
+            { "< 100%" : 1 }
+        ],
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    }
+]

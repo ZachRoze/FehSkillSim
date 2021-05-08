@@ -1,0 +1,111 @@
+[
+    {
+        "type" : "StatBuff",
+        "text" : "grants %s +%d to unit",
+        "flavor" : [
+            { "Atk/Spd" : 1 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 2 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "stats" : true,
+        "combat" : true,
+        "turn" : true,
+        "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "FollowUpGuaranteed",
+        "text" : "unit makes a guaranteed follow-up attack",
+        "flavor" : null,
+        "stats" : true,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "InflictDebuffSmoke",
+        "text" : "inflicts %s on foe and foes within 2 spaces of target through their next action",
+        "flavor" : [
+            { "Def/Res-7" : 1 },
+            { "Atk/Spd-7" : 1 },
+            { "Atk/Spd/Def/Res-7" : 2 },
+            { "[Deep Wounds]" : 3 },
+            { "Gravity" : 2 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "MovementSelf",
+        "text" : "unit can move %s",
+        "flavor" : [
+            { "to a space adjacent to any ally" : 2 },
+            { "to a space within 2 spaces of support partner" : 2 },
+            { "to a space adjacent to a flying ally within 2 spaces" : 1 },
+            { "1 extra space" : 3 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : true,
+        "after" : false,
+        "always" : true
+    },
+    {
+        "type" : "MovementAllies",
+        "text" : "%s allies within 2 spaces can move to a space adjacent to unit",
+        "flavor" : [
+            { "armored" : 1 },
+            { "cavalry" : 1 },
+            { "flying" : 1 },
+            { "infantry" : 1 },
+            { "dragon" : 1 },
+            { "beast" : 1 },
+            { "infantry and armored" : 2 },
+            { "infantry and flying" : 2 },
+            { "infantry and cavalry" : 2 },
+            { "dragon and beast" : 1 },
+            { "infantry, armored, and flying" : 2 },
+            { "any" : 3 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : true,
+        "after" : false,
+        "always" : true
+    },
+    {
+        "type" : "AdjacentAllyBuff",
+        "text" : "grants %s +%d to adjacent allies",
+        "flavor" : [
+            { "Atk/Spd" : 1 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 1 },
+            { "Atk/Spd/Res" : 1 },
+            { "Atk/Def/Res" : 1 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 2 }
+        ],
+        "stats" : true,
+        "combat" : false,
+        "turn" : true,
+        "after" : true,
+        "always" : false
+    }
+]

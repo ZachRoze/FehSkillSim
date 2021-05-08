@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feh Skill Sim</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    {% if imagePath %}
+    <img src="{{ imagePath }}">
+    {% endif %}
+</body>
+<div class="content">
+    <form action="/" method="POST">
+        {% if weaponName %}
+        <input type="text" name="weaponName" id="weaponName" value="{{weaponName}}">
+        {% else %}
+        <input type="text" name="weaponName" id="weaponName" placeholder="Blessed Amiti">
+        {% endif %}
+        <select name="weapon" id="weapon">
+            <option value="" selected disabled hidden>Weapon</option>
+            <option value="melee" {% if weaponType=="melee" %} selected="selected" {% endif %}>Melee</option>
+            <option value="tome" {% if weaponType=="tome" %} selected="selected" {% endif %}>Tome</option>
+            <option value="bow" {% if weaponType=="bow" %} selected="selected" {% endif %}>Bow</option>
+            <option value="dagger" {% if weaponType=="dagger" %} selected="selected" {% endif %}>Dagger</option>
+            <option value="staff" {% if weaponType=="staff" %} selected="selected" {% endif %}>Staff</option>
+            <option value="dragon" {% if weaponType=="dragon" %} selected="selected" {% endif %}>Dragon</option>
+            <option value="beast" {% if weaponType=="beast" %} selected="selected" {% endif %}>Beast</option>
+        </select>
+        <select name="move" id="move">
+            <option value="" selected disabled hidden>Movement</option>
+            <option value="infantry" {% if moveType=="infantry" %} selected="selected" {% endif %}>Infantry</option>
+            <option value="cavalry" {% if moveType=="cavalry" %} selected="selected" {% endif %}>Cavalry</option>
+            <option value="flying" {% if moveType=="flying" %} selected="selected" {% endif %}>Flying</option>
+            <option value="armored" {% if moveType=="armored" %} selected="selected" {% endif %}>Armored</option>
+        </select>
+        <select name="power" id="power">
+            <option value="" selected disabled hidden>Power</option>
+            <option value="weak" {% if power=="weak" %} selected="selected" {% endif %}>Weak</option>
+            <option value="decent" {% if power=="decent" %} selected="selected" {% endif %}>Decent</option>
+            <option value="strong" {% if power=="strong" %} selected="selected" {% endif %}>Strong</option>
+            <option value="broken" {% if power=="broken" %} selected="selected" {% endif %}>Broken</option>
+        </select>
+        <input type="submit" value="Generate">
+    </form>
+</div>
+{% if weaponName %}
+    <h1>{{weaponName}}</h1>
+    <h3>{{weaponText}}</h3>
+{% endif %}
+</html>
