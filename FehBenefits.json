@@ -427,7 +427,7 @@
         "flavor" : [
             { "unit and target foe swap spaces" : 1 },
             { "unit moves 1 space away after combat" : 1 },
-            { "target foe moves 1 space away after comba" : 1 },
+            { "target foe moves 1 space away after combat" : 1 },
             { "unit moves 1 space away after combat and target foe moves to unit's previous space" : 1 }
         ],
         "stats" : false,

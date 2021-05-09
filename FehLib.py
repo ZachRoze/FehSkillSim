@@ -131,15 +131,15 @@ def renderWeaponText( weaponType, moveType, power ):
         weight += 1
         condPhrase = ""
         previous = None
-        # 25% chance of being conditionless
-        if newPhraseCheck( weight, 3, weightMax, .25 ):
+        # 40% chance of being conditionless
+        if newPhraseCheck( weight, 3, weightMax, .40 ):
             # conditionless
             weight += 3
         else:
             # Get first condition
             condPhrase = "If " + getPhraseFiltered( condData )
-            # 50% chance of having 2 conditions
-            if newPhraseCheck( weight, 1, weightMax, .5 ):
+            # 70% chance of only having 1 condition
+            if newPhraseCheck( weight, 1, weightMax, .7 ):
                 # single condition
                 weight += 1
             else:
