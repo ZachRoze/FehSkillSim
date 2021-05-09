@@ -3,17 +3,17 @@
         "type" : "StatBuff",
         "text" : "grants %s +%d to unit",
         "flavor" : [
-            { "Atk/Spd" : 1 },
-            { "Atk/Def" : 1 },
-            { "Atk/Res" : 1 },
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 2 },
+            { "Atk/Res" : 2 },
             { "Spd/Def" : 1 },
             { "Spd/Res" : 1 },
             { "Def/Res" : 1 },
-            { "Atk/Spd/Def" : 2 },
-            { "Atk/Spd/Res" : 2 },
-            { "Atk/Def/Res" : 2 },
-            { "Spd/Def/Res" : 2 },
-            { "Atk/Spd/Def/Res" : 3 }
+            { "Atk/Spd/Def" : 3 },
+            { "Atk/Spd/Res" : 3 },
+            { "Atk/Def/Res" : 3 },
+            { "Spd/Def/Res" : 3 },
+            { "Atk/Spd/Def/Res" : 4 }
         ],
         "stats" : true,
         "combat" : true,
@@ -25,7 +25,18 @@
         "type" : "FollowUpGuaranteed",
         "text" : "unit makes a guaranteed follow-up attack",
         "flavor" : null,
-        "stats" : true,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "FollowUpPrevented",
+        "text" : "foe cannot make a follow-up attack",
+        "flavor" : null,
+        "stats" : false,
         "combat" : true,
         "turn" : false,
         "after" : false,
@@ -39,8 +50,8 @@
             { "Def/Res-7" : 1 },
             { "Atk/Spd-7" : 1 },
             { "Atk/Spd/Def/Res-7" : 2 },
-            { "[Deep Wounds]" : 3 },
-            { "Gravity" : 2 }
+            { "[Deep Wounds]" : 4 },
+            { "Gravity" : 3 }
         ],
         "stats" : false,
         "combat" : false,
@@ -90,22 +101,169 @@
         "type" : "AdjacentAllyBuff",
         "text" : "grants %s +%d to adjacent allies",
         "flavor" : [
-            { "Atk/Spd" : 1 },
+            { "Atk/Spd" : 2 },
             { "Atk/Def" : 1 },
             { "Atk/Res" : 1 },
             { "Spd/Def" : 1 },
             { "Spd/Res" : 1 },
             { "Def/Res" : 1 },
-            { "Atk/Spd/Def" : 1 },
-            { "Atk/Spd/Res" : 1 },
-            { "Atk/Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 2 },
             { "Spd/Def/Res" : 1 },
-            { "Atk/Spd/Def/Res" : 2 }
+            { "Atk/Spd/Def/Res" : 3 }
         ],
         "stats" : true,
         "combat" : false,
         "turn" : true,
         "after" : true,
         "always" : false
+    },
+    {
+        "type" : "NeutralizesPenalties",
+        "text" : "neutralizes unit's penalties%s",
+        "flavor" : [
+            { " to Atk/Spd" : 2 },
+            { " to Atk/Def" : 2 },
+            { " to Atk/Res" : 2 },
+            { " to Spd/Def" : 1 },
+            { " to Spd/Res" : 1 },
+            { " to Def/Res" : 1 },
+            { "" : 3 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Unity",
+        "text" : "grants bonus to %s = current penalty on each of those stats x 2",
+        "flavor" : [
+            { "Atk/Spd" : 4 },
+            { "Atk/Def" : 4 },
+            { "Atk/Res" : 4 },
+            { "Spd/Def" : 3 },
+            { "Spd/Res" : 3 },
+            { "Def/Res" : 3 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Recoil",
+        "text" : "deals %d damage to unit",
+        "flavor" : null,
+        "stats" : true,
+        "combat" : false,
+        "turn" : true,
+        "after" : true,
+        "always" : false,
+        "weight" : 0
+    },
+    {
+        "type" : "Session",
+        "text" : "grants bonus to unit's %s = 3 + number of allies who have already acted x 3 (max value of 9)",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "BonusDoubler",
+        "text" : "grants bonus to %s = current bonus on each of those stats",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Counter",
+        "text" : "unit can counterattack regardless of foe's range",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : false,
+        "always" : true,
+        "weight" : 4
+    },
+    {
+        "type" : "IgnoreAdaptive",
+        "text" : "disable foe's skills that \"calculate damage using the lower of foe's Def or Res\"",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 2
+    },
+    {
+        "type" : "Blade",
+        "text" : "grants Special cooldown charge +1 per %s attack",
+        "flavor" : [
+            { "unit's" : 3 },
+            { "foe's" : 3 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Guard",
+        "text" : "inflicts Special cooldown charge -1 on foe per attack",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "AdaptiveDamage",
+        "text" : "calculates damage using the lower of foe's Def or Res",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 2
     }
 ]
