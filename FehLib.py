@@ -61,10 +61,10 @@ def renderWeaponText( weaponType, moveType, power ):
         nonlocal weight
         nonlocal previous
         nonlocal weaponType
-        filteredData = [ phrase for phrase in data if ( phrase[ "combat" ] and types[ "combat" ] )
-                                                    or ( phrase[ "turn" ] and types[ "turn" ] )
-                                                    or ( phrase[ "after" ] and types[ "after" ] )
-                                                    or ( phrase[ "always" ] and types[ "always" ] ) ]
+        filteredData = [ phrase for phrase in data if ( "combat" in phrase and types[ "combat" ] )
+                                                    or ( "turn" in phrase and types[ "turn" ] )
+                                                    or ( "after" in phrase and types[ "after" ] )
+                                                    or ( "always" in phrase and types[ "always" ] ) ]
         filteredPhrase = random.choice( filteredData )
         i = 1
         while ( previous == filteredPhrase[ "type" ] \
@@ -79,14 +79,14 @@ def renderWeaponText( weaponType, moveType, power ):
                 assert( False )
         previous = filteredPhrase[ "type" ]
         if update:
-            types[ "combat" ] = filteredPhrase[ "combat" ] and types[ "combat" ]
-            types[ "turn" ] = filteredPhrase[ "turn" ] and types[ "turn" ]
-            types[ "after" ] = filteredPhrase[ "after" ] and types[ "after" ]
-            types[ "always" ] = filteredPhrase[ "always" ] and types[ "always" ]
+            types[ "combat" ] = "combat" in filteredPhrase and types[ "combat" ]
+            types[ "turn" ] = "turn" in filteredPhrase and types[ "turn" ]
+            types[ "after" ] = "after" in filteredPhrase and types[ "after" ]
+            types[ "always" ] = "always" in filteredPhrase and types[ "always" ]
         filteredString = filteredPhrase[ "text" ]
         print( filteredString)
         # Format string if checks
-        if "stats" in filteredPhrase and filteredPhrase[ "flavor" ] and filteredPhrase[ "stats" ]:
+        if "stats" in filteredPhrase and "flavor" in filteredPhrase:
             flavor = random.choice( filteredPhrase[ "flavor" ] )
             weight += list( flavor.values() )[ 0 ]
             if "flavor2" in filteredPhrase:
@@ -95,7 +95,7 @@ def renderWeaponText( weaponType, moveType, power ):
                 filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7] ), list( flavor2.keys() )[ 0 ] )
             else:
                 filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7 ] ) )
-        elif filteredPhrase[ "flavor" ]:
+        elif "flavor" in filteredPhrase:
             flavor = random.choice( filteredPhrase[ "flavor" ] )
             weight += list( flavor.values() )[ 0 ]
             if "flavor2" in filteredPhrase:
@@ -104,7 +104,7 @@ def renderWeaponText( weaponType, moveType, power ):
                 filteredString = filteredString % ( list( flavor.keys() )[ 0 ], list( flavor2.keys() )[ 0 ] )
             else:
                 filteredString = filteredString % list( flavor.keys() )[ 0 ]
-        elif "stats" in filteredPhrase and filteredPhrase[ "stats" ]:
+        elif "stats" in filteredPhrase:
             print( filteredString )
             if "flavor2" in filteredPhrase:
                 flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
