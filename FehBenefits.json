@@ -34,7 +34,7 @@
     },
     {
         "type" : "InflictDebuffSmoke",
-        "text" : "inflicts %s on foe and foes within 2 spaces of target through their next action",
+        "text" : "if unit attacked, inflicts %s on foe and foes within 2 spaces of target through their next action",
         "flavor" : [
             { "Def/Res-7" : 1 },
             { "Atk/Spd-7" : 1 },
