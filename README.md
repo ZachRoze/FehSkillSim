@@ -1,5 +1,6 @@
 # FEH Weapon Skill Simulator
-[Try it out here](https://feh-stuff.github.io)
+[Try it out here](https://fehskillsim.herokuapp.com/)
+
 Because of new prf weapons that come out that look like encyclopedias, it would be fun to guess what the new prfs will be.
 Using existing skill "phrases" such as "if unit initiates combat" and "unit makes a guaranteed follow-up attack", make a brand new prf.
 
