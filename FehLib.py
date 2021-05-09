@@ -68,7 +68,9 @@ def renderWeaponText( weaponType, moveType, power ):
         filteredPhrase = random.choice( filteredData )
         i = 1
         while ( previous == filteredPhrase[ "type" ] \
-            or ( weaponType == "dagger" and filteredPhrase[ "type" ] == "InflictDebuffSmoke" ) ):
+            or ( weaponType == "dagger" and filteredPhrase[ "type" ] == "InflictDebuffSmoke" )
+            or ( previous == "Blow" and filteredPhrase[ "type" ] == "Stance")
+            or ( previous == "Stance" and filteredPhrase[ "type" ] == "Blow") ):
             filteredPhrase = random.choice( filteredData )
             i += 1
             if i > 20:

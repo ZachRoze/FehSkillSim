@@ -112,6 +112,24 @@
         "always" : false
     },
     {
+        "type" : "NeutralizesBonuses",
+        "text" : "neutralizes foes's bonuses%s",
+        "flavor" : [
+            { " to Atk/Spd" : 4 },
+            { " to Atk/Def" : 4 },
+            { " to Atk/Res" : 4 },
+            { " to Spd/Def" : 4 },
+            { " to Spd/Res" : 4 },
+            { " to Def/Res" : 3 },
+            { "" : 5 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
         "type" : "NeutralizesPenaltiesStatus",
         "text" : "neutralizes any [Penalty] on %s",
         "flavor" : [
@@ -125,6 +143,32 @@
         "combat" : false,
         "turn" : true,
         "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "BasicDebuff",
+        "text" : "inflicts %s-%d on foe%s",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 2 },
+            { "Atk/Res" : 2 },
+            { "Spd/Def" : 2 },
+            { "Spd/Res" : 2 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 3 },
+            { "Atk/Spd/Res" : 3 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 2 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "flavor2" : [
+            { "" : 0 },
+            { "s within 2 spaces" : 1}
+        ],
+        "stats" : true,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
         "always" : false
     },
     {
@@ -191,6 +235,34 @@
         "always" : false
     },
     {
+        "type" : "InflictNearestDebuff",
+        "text" : "inflicts %s on nearest foes through their next actions",
+        "flavor" : [
+            { "Atk-7" : 1 },
+            { "Spd-7" : 1 },
+            { "Def-7" : 1 },
+            { "Res-7" : 1 },
+            { "Atk/Spd-7" : 1 },
+            { "Atk/Def-7" : 1 },
+            { "Atk/Res-7" : 1 },
+            { "Spd/Def-7" : 1 },
+            { "Spd/Res-7" : 1 },
+            { "Atk/Spd/Def/Res-7" : 2 },
+            { "[Deep Wounds]" : 3 },
+            { "[Gravity]" : 3 },
+            { "[Panic]" : 2 },
+            { "Special cooldown count+1" : 3 },
+            { "status preventing counterattacks" : 3 },
+            { "[Guard]" : 2 },
+            { "[Isolation]" : 2 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : true,
+        "after" : false,
+        "always" : false
+    },
+    {
         "type" : "InflictChill",
         "text" : "inflicts %s on foe on the enemy team with the highest %s through its next actions",
         "flavor" : [
@@ -236,7 +308,9 @@
         "text" : "unit can move %s",
         "flavor" : [
             { "to a space adjacent to any ally" : 2 },
+            { "to a space adjacent to support partner" : 2 },
             { "to a space within 2 spaces of support partner" : 2 },
+            { "to a space within 2 spaces an ally within 2 spaces" : 3 },
             { "to a space adjacent to a flying ally within 2 spaces" : 1 },
             { "1 extra space" : 3 }
         ],
@@ -278,6 +352,25 @@
             { "Atk/Res" : 4 },
             { "Spd/Def" : 3 },
             { "Spd/Res" : 3 },
+            { "Def/Res" : 3 },
+            { "Atk/Spd/Def" : 4 },
+            { "Atk/Spd/Res" : 4 },
+            { "Atk/Def/Res" : 3 },
+            { "Spd/Def/Res" : 3 },
+            { "Atk/Spd/Def/Res" : 5 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Broadleaf",
+        "text" : "grants bonus to %s = total penalties on foe",
+        "flavor" : [
+            { "Atk" : 4 },
+            { "Atk/Spd" : 5 },
             { "Def/Res" : 3 }
         ],
         "stats" : false,
@@ -288,12 +381,18 @@
     },
     {
         "type" : "Recoil",
-        "text" : "deals %d damage to unit",
+        "text" : "deals %d damage to %s",
         "flavor" : null,
+        "flavor2" : [
+            { "adjacent allies" : 0 },
+            { "allies within 2 spaces" : 1 },
+            { "unit and adjacent allies" : 1 },
+            { "unit and allies within 2 spaces" : 2 }
+        ],
         "stats" : true,
         "combat" : false,
         "turn" : true,
-        "after" : true,
+        "after" : false,
         "always" : false,
         "weight" : 0
     },
@@ -334,6 +433,19 @@
             { "Atk/Def/Res" : 2 },
             { "Spd/Def/Res" : 1 },
             { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "BladeTome",
+        "text" : "grants bonus to %s = total bonuses on unit",
+        "flavor" : [
+            { "Atk" : 2 },
+            { "Atk/Spd" : 3 }
         ],
         "stats" : false,
         "combat" : true,
@@ -413,32 +525,6 @@
         "combat" : false,
         "turn" : true,
         "after" : true,
-        "always" : false
-    },
-    {
-        "type" : "BasicDebuff",
-        "text" : "inflicts %s-%d on foe%s",
-        "flavor" : [
-            { "Atk/Spd" : 2 },
-            { "Atk/Def" : 2 },
-            { "Atk/Res" : 2 },
-            { "Spd/Def" : 2 },
-            { "Spd/Res" : 2 },
-            { "Def/Res" : 1 },
-            { "Atk/Spd/Def" : 3 },
-            { "Atk/Spd/Res" : 3 },
-            { "Atk/Def/Res" : 2 },
-            { "Spd/Def/Res" : 2 },
-            { "Atk/Spd/Def/Res" : 3 }
-        ],
-        "flavor2" : [
-            { "" : 0 },
-            { "s within 2 spaces" : 1}
-        ],
-        "stats" : true,
-        "combat" : true,
-        "turn" : false,
-        "after" : false,
         "always" : false
     },
     {
@@ -593,17 +679,6 @@
         "weight" : 3
     },
     {
-        "type" : "GuardBearing",
-        "text" : "reduces damage from foe's first attack by 50%",
-        "flavor" : null,
-        "stats" : false,
-        "combat" : true,
-        "turn" : false,
-        "after" : false,
-        "always" : false,
-        "weight" : 4
-    },
-    {
         "type" : "NullC",
         "text" : "neutralizes effects that prevent unit's counterattacks",
         "flavor" : null,
@@ -613,6 +688,56 @@
         "after" : false,
         "always" : false,
         "weight" : 4
+    },
+    {
+        "type" : "NullBlade",
+        "text" : "neutralizes effects that grant \"Special cooldown charge +X\" to foe",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "NullGuard",
+        "text" : "neutralizes effects that inflict \"Special cooldown charge -X\" on unit",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "GuardBearing",
+        "text" : "reduces damage from foe's first attack by %s",
+        "flavor" : [
+            { "30%" : 3 },
+            { "40%" : 4 },
+            { "50%" : 4 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "UrvanEffect",
+        "text" : "reduces damage from foe's second attack onward by %s",
+        "flavor" : [
+            { "60%" : 3 },
+            { "70%" : 4 },
+            { "80%" : 4 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
     },
     {
         "type" : "Obstruct",
@@ -680,6 +805,119 @@
             { "30%" : 3 },
             { "40%" : 4 },
             { "50%" : 4 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "AstraBlade",
+        "text" : "deals damage = 50%% of unit's Atk - foe's %s",
+        "flavor" : [
+            { "Def" : 4 },
+            { "Res" : 4 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "DifferenceTrue",
+        "text" : "deals damage = 70%% of difference between unit's and foe's %s",
+        "flavor" : [
+            { "Atk" : 2 },
+            { "Spd" : 2 },
+            { "Def" : 2 },
+            { "Res" : 2 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "RupturedSky",
+        "text" : "deals damage = 20%% of foe's %s",
+        "flavor" : [
+            { "Atk" : 5 },
+            { "Spd" : 5 },
+            { "Def" : 5 },
+            { "Res" : 5 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "TrueStat",
+        "text" : "deals damage = 20%% of unit's %s",
+        "flavor" : [
+            { "Atk" : 5 },
+            { "Spd" : 5 },
+            { "Def" : 5 },
+            { "Res" : 5 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Raven",
+        "text" : "grants weapon-triangle advantage against colorless foes, and inflicts weapon-triangle disadvantage on colorless foes",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 2
+    },
+    {
+        "type" : "Owl",
+        "text" : "boosts unit's %s by number of adjacent allies x 2",
+        "flavor" : [
+            { "Atk/Spd" : 1 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 1 },
+            { "Atk/Spd/Res" : 1 },
+            { "Atk/Def/Res" : 1 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 1 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Form",
+        "text" : "grants %s+X to unit (X = 2 × number of allies within 2 spaces, + 1; max 7)",
+        "flavor" : [
+            { "Atk/Spd" : 1 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 1 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 3 }
         ],
         "stats" : false,
         "combat" : true,
