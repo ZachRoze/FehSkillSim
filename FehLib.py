@@ -3,6 +3,7 @@ import json
 
 #TODO 5/7
 # Add a bunch of conds, and benefits
+# Wrazzle Dazzle
 # Picture formatting?
 
 def newPhraseCheck( curWeight, addedWeight, weightMax, randomCheck ):
@@ -92,6 +93,10 @@ def renderWeaponText( weaponType, moveType, power ):
         if "weight" in filteredPhrase:
             weight += filteredPhrase[ "weight" ]
         return filteredString
+
+    # reduce dagger max weight to possibly stack debuffs at end
+    if weaponType == "dagger":
+        weightMax -= 5
 
     # Basic starter effects
     # 25% chance of effective damage
@@ -192,21 +197,23 @@ def renderWeaponText( weaponType, moveType, power ):
             "infantry" : "grants Atk+2 and deals +10 damage when Special triggers.",
             "cavalry" : "grants Atk+2, and if unit initiates combat, inflicts Atk/Def-4 on foe during combat and foe cannot make a follow-up attack.",
             "flying" : "unit can move 1 extra space. (That turn only. Does not stack.) If unit transforms, grants Atk+2.",
-            "armor" : "grants Atk+2, and unit can counterattack regardless of foe's range."
+            "armored" : "grants Atk+2, and unit can counterattack regardless of foe's range."
         }
         description += "At start of turn, if unit is adjacent to only beast or dragon allies or if unit is not adjacent "\
             "to any ally, unit transforms (otherwise, unit reverts). If unit transforms, " + beastMoveSkill[ moveType ]
     # dagger innate smoke skill
     if weaponType == "dagger":
+        weightMax = powerToWeight[ power ]
         daggerSmoke = next( ( benefit for benefit in benefitData if benefit[ "type" ] == "InflictDebuffSmoke" ), None )
         # 25% shot of something better than basic def/res smoke
-        if random.random() < .25:
+        if newPhraseCheck( weight, 3, weightMax, .25 ):
             flavor = random.choice( daggerSmoke[ "flavor" ][ 2: ] )
         else:
             flavor = daggerSmoke[ "flavor" ][ 0 ]
         flavorText = list( flavor.keys() )[ 0 ]
         if "Def/Res" not in flavorText:
             flavorText += " and Def/Res-7"
+        flavorText = flavorText.replace( "Def/Res-7", "[Dagger 7]" )
         description += "After combat, " + ( daggerSmoke[ "text" ] % flavorText ) + "."
         
     return description

@@ -50,10 +50,13 @@
             { "Def/Res-7" : 1 },
             { "Atk/Spd-7" : 1 },
             { "Atk/Spd/Def/Res-7" : 2 },
-            { "[Deep Wounds]" : 4 },
+            { "[Deep Wounds]" : 3 },
             { "[Gravity]" : 3 },
             { "[Panic]" : 3 },
-            { "Special cooldown count+1" : 5 }
+            { "Special cooldown count+1" : 5 },
+            { "status preventing counterattacks" : 4 },
+            { "[Guard]" : 3 },
+            { "[Isolation]" : 4 }
         ],
         "stats" : false,
         "combat" : false,
