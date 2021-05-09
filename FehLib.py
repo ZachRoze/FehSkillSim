@@ -75,6 +75,7 @@ def renderWeaponText( weaponType, moveType, power ):
             types[ "after" ] = filteredPhrase[ "after" ] and types[ "after" ]
             types[ "always" ] = filteredPhrase[ "always" ] and types[ "always" ]
         filteredString = filteredPhrase[ "text" ]
+        print( filteredString)
         # Format string if checks
         if "stats" in filteredPhrase and filteredPhrase[ "flavor" ] and filteredPhrase[ "stats" ]:
             flavor = random.choice( filteredPhrase[ "flavor" ] )
@@ -84,6 +85,9 @@ def renderWeaponText( weaponType, moveType, power ):
             flavor = random.choice( filteredPhrase[ "flavor" ] )
             weight += list( flavor.values() )[ 0 ]
             filteredString = filteredString % list( flavor.keys() )[ 0 ]
+        elif "stats" in filteredPhrase and filteredPhrase[ "stats" ]:
+            print( filteredString )
+            filteredString = filteredString % random.choice( [ 4, 5, 6, 7 ] )
         # Update weight for benefits
         if "weight" in filteredPhrase:
             weight += filteredPhrase[ "weight" ]

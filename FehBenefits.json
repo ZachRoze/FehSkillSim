@@ -51,7 +51,9 @@
             { "Atk/Spd-7" : 1 },
             { "Atk/Spd/Def/Res-7" : 2 },
             { "[Deep Wounds]" : 4 },
-            { "Gravity" : 3 }
+            { "[Gravity]" : 3 },
+            { "[Panic]" : 3 },
+            { "Special cooldown count+1" : 5 }
         ],
         "stats" : false,
         "combat" : false,
@@ -100,6 +102,28 @@
     {
         "type" : "AdjacentAllyBuff",
         "text" : "grants %s +%d to adjacent allies",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "stats" : true,
+        "combat" : false,
+        "turn" : true,
+        "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "AllyDriveBuff",
+        "text" : "grants %s +%d to allies within 2 spaces",
         "flavor" : [
             { "Atk/Spd" : 2 },
             { "Atk/Def" : 1 },
@@ -265,5 +289,279 @@
         "after" : false,
         "always" : false,
         "weight" : 2
+    },
+    {
+        "type" : "Ruse",
+        "text" : "inflicts %s-%d and [Guard] on foes in cardinal directions of unit through their next actions",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 2 },
+            { "Atk/Res" : 2 },
+            { "Spd/Def" : 2 },
+            { "Spd/Res" : 2 },
+            { "Def/Res" : 2 }
+        ],
+        "stats" : true,
+        "combat" : false,
+        "turn" : true,
+        "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "BasicDebuff",
+        "text" : "inflicts %s-%d on foe",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 2 },
+            { "Atk/Res" : 2 },
+            { "Spd/Def" : 2 },
+            { "Spd/Res" : 2 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 3 },
+            { "Atk/Spd/Res" : 3 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 2 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "stats" : true,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Firesweep",
+        "text" : "foe cannot counterattack",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : false,
+        "always" : true,
+        "weight" : 5
+    },
+    {
+        "type" : "WoDao",
+        "text" : "deals +10 damage when Special triggers",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : false,
+        "always" : true,
+        "weight" : 3
+    },
+    {
+        "type" : "StatlessDamageReduction",
+        "text" : "reduces damage fom attacks and from area-of-effect Specials by 40%",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 5
+    },
+    {
+        "type" : "StatDamageReduction",
+        "text" : "reduces damage fom attacks and from area-of-effect Specials by percentage = difference between unit and foe's %s x 4 (max 40%%)",
+        "flavor" : [
+            { "Atk" : 4 },
+            { "Spd" : 4 },
+            { "Def" : 4 },
+            { "Res" : 4 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
+    },
+    {
+        "type" : "Desperation",
+        "text" : "unit can make a follow-up attack before foe can counterattack",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "Vantage",
+        "text" : "unit can attack before foe's first attack",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 2
+    },
+    {
+        "type" : "HardyBearing",
+        "text" : "disables unit's and foe's skills that change attack priority",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "Brave",
+        "text" : "unit attacks twice",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "LungeAndStuff",
+        "text" : "%s",
+        "flavor" : [
+            { "unit and target foe swap spaces" : 1 },
+            { "unit moves 1 space away after combat" : 1 },
+            { "target foe moves 1 space away after comba" : 1 },
+            { "unit moves 1 space away after combat and target foe moves to unit's previous space" : 1 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "OffensiveNFU",
+        "text" : "neutralizes effects that prevent unit's follow-up attacks",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "DefensiveNFU",
+        "text" : "neutralizes effects that guarantee foe's follow-up attacks",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "GuardBearing",
+        "text" : "reduces damage from foe's first attack by 50%",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 4
+    },
+    {
+        "type" : "GuardBearing",
+        "text" : "neutralizes effects that prevent unit's counterattacks",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false,
+        "weight" : 4
+    },
+    {
+        "type" : "RestoreHP",
+        "text" : "Restores %d HP",
+        "flavor" : null,
+        "stats" : true,
+        "combat" : false,
+        "turn" : true,
+        "after" : true,
+        "always" : false,
+        "weight" : 3
+    },
+    {
+        "type" : "Obstruct",
+        "text" : "foes cannot move through spaces adjacent to unit",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : false,
+        "always" : true,
+        "weight" : 1
+    },
+    {
+        "type" : "PoisonStrike",
+        "text" : "deals 10 damage to foe",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : true,
+        "always" : false,
+        "weight" : 1
+    },
+    {
+        "type" : "Galeforce",
+        "text" : "grants another action to unit",
+        "flavor" : null,
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : true,
+        "always" : false,
+        "weight" : 5
+    },
+    {
+        "type" : "Canto",
+        "text" : "enables %s",
+        "flavor" : [
+            { "[Canto (Rem. +1)]" : 5 },
+            { "[Canto (Rem.)]" : 4 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : false,
+        "after" : false,
+        "always" : true
+    },
+    {
+        "type" : "TimesPulse",
+        "text" : "grants Special cooldown count%s",
+        "flavor" : [
+            { "-1" : 4 },
+            { "-2" : 5 }
+        ],
+        "stats" : false,
+        "combat" : false,
+        "turn" : true,
+        "after" : true,
+        "always" : false
+    },
+    {
+        "type" : "TimesPulse",
+        "text" : "restores HP = %s of damage dealt when Special triggers",
+        "flavor" : [
+            { "30%" : 3 },
+            { "40%" : 4 },
+            { "50%" : 4 }
+        ],
+        "stats" : false,
+        "combat" : true,
+        "turn" : false,
+        "after" : false,
+        "always" : false
     }
 ]
