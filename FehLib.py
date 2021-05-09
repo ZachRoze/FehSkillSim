@@ -29,10 +29,16 @@ def renderWeaponText( weaponType, moveType, power ):
     # assigned to different parts of the description
     weight = 0
     powerToWeight = {
-        "weak" : 5,
-        "decent" : 10,
-        "strong" : 15,
-        "broken" : 20
+        "weak" : 8,
+        "decent" : 13,
+        "strong" : 18,
+        "broken" : 23
+    }
+    modifierToWeight = {
+        "combat" : 3,
+        "turn" : 2,
+        "after" : 1,
+        "always" : 2
     }
     weightMax = powerToWeight[ power ]
     previous = None
@@ -81,14 +87,29 @@ def renderWeaponText( weaponType, moveType, power ):
         if "stats" in filteredPhrase and filteredPhrase[ "flavor" ] and filteredPhrase[ "stats" ]:
             flavor = random.choice( filteredPhrase[ "flavor" ] )
             weight += list( flavor.values() )[ 0 ]
-            filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7 ] ) )
+            if "flavor2" in filteredPhrase:
+                flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
+                weight += list( flavor2.values() )[ 0 ]
+                filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7] ), list( flavor2.keys() )[ 0 ] )
+            else:
+                filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7 ] ) )
         elif filteredPhrase[ "flavor" ]:
             flavor = random.choice( filteredPhrase[ "flavor" ] )
             weight += list( flavor.values() )[ 0 ]
-            filteredString = filteredString % list( flavor.keys() )[ 0 ]
+            if "flavor2" in filteredPhrase:
+                flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
+                weight += list( flavor2.values() )[ 0 ]
+                filteredString = filteredString % ( list( flavor.keys() )[ 0 ], list( flavor2.keys() )[ 0 ] )
+            else:
+                filteredString = filteredString % list( flavor.keys() )[ 0 ]
         elif "stats" in filteredPhrase and filteredPhrase[ "stats" ]:
             print( filteredString )
-            filteredString = filteredString % random.choice( [ 4, 5, 6, 7 ] )
+            if "flavor2" in filteredPhrase:
+                flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
+                weight += list( flavor2.values() )[ 0 ]
+                filteredString = filteredString % ( random.choice( [ 4, 5, 6, 7 ] ), list( flavor2.keys() )[ 0 ] )
+            else:
+                filteredString = filteredString % random.choice( [ 4, 5, 6, 7 ] )
         # Update weight for benefits
         if "weight" in filteredPhrase:
             weight += filteredPhrase[ "weight" ]
@@ -170,6 +191,7 @@ def renderWeaponText( weaponType, moveType, power ):
         # Chose string modifier based on current phrases
         modifiers = { k:v for ( k,v ) in types.items() if v }
         modifier = random.choice( list( modifiers ) )
+        weight += modifierToWeight[ modifier ]
         modifier2 = ""
         # 50% chance of two benefits, only with a conditional
         if condPhrase and newPhraseCheck( weight, 2, weightMax, .5 ):
@@ -180,6 +202,7 @@ def renderWeaponText( weaponType, moveType, power ):
             benefitPhrase2 = getPhraseFiltered( benefitData )
             modifiers2 = { k:v for ( k,v ) in types.items() if v }
             modifier2 = random.choice( list( modifiers2 ) )
+            weight += modifierToWeight[ modifier2 ]
         # If both benefits have the same modifier, apply the same formatting to avoid redundancy
         if modifier == modifier2:
             benefitPhrase = benefitPhrase + " and " + benefitPhrase2
