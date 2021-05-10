@@ -17,10 +17,13 @@ def formatBenefitPhrase( benefitPhrase, modifier, condPhrase ):
     if modifier == "turn":
         if not condPhrase:
             benefitPhrase = "at start of turn, " + benefitPhrase
-        benefitPhrase = benefitPhrase + " for 1 turn"
+        if "grant" in benefitPhrase and "Special cooldown count-" not in benefitPhrase \
+            and "restores" not in benefitPhrase:
+            benefitPhrase = benefitPhrase + " for 1 turn"
     if modifier == "after":
         benefitPhrase = "after combat, " + benefitPhrase
-        if "grants" in benefitPhrase:
+        if "grant" in benefitPhrase and "Special cooldown count-" not in benefitPhrase \
+            and "restores" not in benefitPhrase:
             benefitPhrase = benefitPhrase + " for 1 turn"
     return benefitPhrase
 
@@ -29,10 +32,10 @@ def renderWeaponText( weaponType, moveType, power ):
     # assigned to different parts of the description
     weight = 0
     powerToWeight = {
-        "weak" : 8,
-        "decent" : 13,
-        "strong" : 18,
-        "broken" : 23
+        "weak" : 15,
+        "decent" : 20,
+        "strong" : 25,
+        "broken" : 30
     }
     modifierToWeight = {
         "combat" : 3,
@@ -42,6 +45,8 @@ def renderWeaponText( weaponType, moveType, power ):
     }
     weightMax = powerToWeight[ power ]
     previous = None
+    condPhrase = ""
+    benefitPhrase = ""
     description = ""
     types = {
         "combat" : True,
@@ -57,61 +62,54 @@ def renderWeaponText( weaponType, moveType, power ):
         benefitData = json.load( file )
 
     # Gets all phrases based on current
-    def getPhraseFiltered( data, update=True ):
+    def getPhraseFiltered( data ):
         nonlocal weight
         nonlocal previous
         nonlocal weaponType
+        nonlocal types
+        nonlocal condPhrase
         filteredData = [ phrase for phrase in data if ( "combat" in phrase and types[ "combat" ] )
                                                     or ( "turn" in phrase and types[ "turn" ] )
                                                     or ( "after" in phrase and types[ "after" ] )
                                                     or ( "always" in phrase and types[ "always" ] ) ]
-        filteredPhrase = random.choice( filteredData )
+        # 40% bias towards StatBuffs
+        filteredPhrase = filteredData[ 0 ] if filteredData[ 0 ][ "type" ] == "StatBuff" \
+            and condPhrase and random.random() < .40 else random.choice( filteredData )
         i = 1
-        while ( previous == filteredPhrase[ "type" ] \
+        while ( previous == filteredPhrase[ "type" ]
             or ( weaponType == "dagger" and filteredPhrase[ "type" ] == "InflictDebuffSmoke" )
-            or ( previous == "Blow" and filteredPhrase[ "type" ] == "Stance")
-            or ( previous == "Stance" and filteredPhrase[ "type" ] == "Blow") ):
+            or ( weaponType == "staff" and ( filteredPhrase[ "type" ] == "Firesweep" or filteredPhrase[ "type" ] == "Raven" ) ) ):
             filteredPhrase = random.choice( filteredData )
             i += 1
             if i > 20:
                 print( description )
                 print( types )
                 assert( False )
+
         previous = filteredPhrase[ "type" ]
-        if update:
-            types[ "combat" ] = "combat" in filteredPhrase and types[ "combat" ]
-            types[ "turn" ] = "turn" in filteredPhrase and types[ "turn" ]
-            types[ "after" ] = "after" in filteredPhrase and types[ "after" ]
-            types[ "always" ] = "always" in filteredPhrase and types[ "always" ]
+        
+        print( types )
+        types[ "combat" ] = "combat" in filteredPhrase and types[ "combat" ]
+        types[ "turn" ] = "turn" in filteredPhrase and types[ "turn" ]
+        types[ "after" ] = "after" in filteredPhrase and types[ "after" ]
+        types[ "always" ] = "always" in filteredPhrase and types[ "always" ]
         filteredString = filteredPhrase[ "text" ]
-        print( filteredString)
-        # Format string if checks
-        if "stats" in filteredPhrase and "flavor" in filteredPhrase:
+        print( types )
+        print( filteredString )
+        filteredFormat = ()
+
+        # String formatting
+        if "flavor" in filteredPhrase:
             flavor = random.choice( filteredPhrase[ "flavor" ] )
+            filteredFormat += tuple( flavor )
             weight += list( flavor.values() )[ 0 ]
-            if "flavor2" in filteredPhrase:
-                flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
-                weight += list( flavor2.values() )[ 0 ]
-                filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7] ), list( flavor2.keys() )[ 0 ] )
-            else:
-                filteredString = filteredString % ( list( flavor.keys() )[ 0 ], random.choice( [ 4, 5, 6, 7 ] ) )
-        elif "flavor" in filteredPhrase:
-            flavor = random.choice( filteredPhrase[ "flavor" ] )
-            weight += list( flavor.values() )[ 0 ]
-            if "flavor2" in filteredPhrase:
-                flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
-                weight += list( flavor2.values() )[ 0 ]
-                filteredString = filteredString % ( list( flavor.keys() )[ 0 ], list( flavor2.keys() )[ 0 ] )
-            else:
-                filteredString = filteredString % list( flavor.keys() )[ 0 ]
-        elif "stats" in filteredPhrase:
-            print( filteredString )
-            if "flavor2" in filteredPhrase:
-                flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
-                weight += list( flavor2.values() )[ 0 ]
-                filteredString = filteredString % ( random.choice( [ 4, 5, 6, 7 ] ), list( flavor2.keys() )[ 0 ] )
-            else:
-                filteredString = filteredString % random.choice( [ 4, 5, 6, 7 ] )
+        if "stats" in filteredPhrase:
+            filteredFormat += ( random.choice( [ 4, 5, 6, 7] ), )
+        if "flavor2" in filteredPhrase:
+            flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
+            filteredFormat += tuple( flavor2 )
+            weight += list( flavor2.values() )[ 0 ]
+        filteredString = filteredPhrase[ "text" ] % filteredFormat
         # Update weight for benefits
         if "weight" in filteredPhrase:
             weight += filteredPhrase[ "weight" ]
@@ -119,7 +117,7 @@ def renderWeaponText( weaponType, moveType, power ):
 
     # reduce dagger max weight to possibly stack debuffs at end
     if weaponType == "dagger":
-        weightMax -= 5
+        weight += 5
 
     # Basic starter effects
     # 25% chance of effective damage
@@ -133,20 +131,23 @@ def renderWeaponText( weaponType, moveType, power ):
     # Bow inate flier efectiveness, no weight
     elif weaponType == "bow":
         description += "Effective against flying foes. "
+    # staff gets one of wrazzle dazzle
+    if weaponType == "staff":
+        description += random.choice( [ "Foe cannot counterattack. ", "Calcuates damage from staff like other weapons. " ] )
     # 75% chance of having a basic stat buff
     if random.random() < .75:
         stat = random.choice( [ "Atk", "Spd", "Def", "Res" ] )
         description += "Grants %s+3. " % stat
         weight += 1
     # 40% chance of slaying
-    if random.random() < .40:
+    if random.random() < .40 and weaponType != "staff":
         description += "Accelerates Special trigger (cooldown count-1). "
         weight += 2
     # 25% chance of neutralizing an effective bonus, but not both
-    if moveType != "" and moveType != "infantry" and random.random() < .25:
+    if moveType != "infantry" and random.random() < .25:
         description += "Neutralizes \"effective against %s\" bonuses. " % moveType
         weight += 2
-    elif weaponType != "" and ( weaponType == "dragon" or weaponType == "beast" ) and random.random() < .25:
+    elif ( weaponType == "dragon" or weaponType == "beast" ) and random.random() < .25:
         description += "Neutralizes \"effective against %s\" bonuses. " % weaponType
         weight += 2
     
@@ -156,26 +157,25 @@ def renderWeaponText( weaponType, moveType, power ):
     while weight < weightMax:
         # Reset phrase filters
         types = dict.fromkeys( types, True )
-        weight += 1
         condPhrase = ""
         previous = None
         # 40% chance of being conditionless
-        if newPhraseCheck( weight, 3, weightMax, .40 ):
+        if newPhraseCheck( weight, 7, weightMax, .60 ):
             # conditionless
-            weight += 3
+            weight += 7
         else:
             # Get first condition
             condPhrase = "If " + getPhraseFiltered( condData )
             # 70% chance of only having 1 condition
             if newPhraseCheck( weight, 1, weightMax, .7 ):
                 # single condition
-                weight += 1
+                weight += 3
             else:
                 # two conditions
-                # 50% chance of "or" or "and" conditional
-                if newPhraseCheck( weight, 2, weightMax, .5 ):
+                # 80% chance of "or" or "and" conditional
+                if newPhraseCheck( weight, 3, weightMax, .8 ):
                     condPhrase += ", or if "
-                    weight += 2
+                    weight += 3
                 else:
                     # no weight on two conditional "and"
                     condPhrase += ", and if "
@@ -186,8 +186,6 @@ def renderWeaponText( weaponType, moveType, power ):
 
             condPhrase += ", "
         # Benefit phrase always happens
-        # If we have 2 benefits, they could have mutually exclusive modifiers
-        typesCopy = types.copy()
         benefitPhrase = getPhraseFiltered( benefitData )
         benefitPhrase2 = ""
         # Chose string modifier based on current phrases
@@ -195,12 +193,9 @@ def renderWeaponText( weaponType, moveType, power ):
         modifier = random.choice( list( modifiers ) )
         weight += modifierToWeight[ modifier ]
         modifier2 = ""
-        # 50% chance of two benefits, only with a conditional
-        if condPhrase and newPhraseCheck( weight, 2, weightMax, .5 ):
+        # 50% chance of two benefits, needs an if statement
+        if condPhrase and newPhraseCheck( weight, 0, weightMax, .5 ):
             # two benefits
-            weight += 2
-            # Revert modifiers back to conditional only
-            types = typesCopy
             benefitPhrase2 = getPhraseFiltered( benefitData )
             modifiers2 = { k:v for ( k,v ) in types.items() if v }
             modifier2 = random.choice( list( modifiers2 ) )
@@ -209,11 +204,11 @@ def renderWeaponText( weaponType, moveType, power ):
         if modifier == modifier2:
             benefitPhrase = benefitPhrase + " and " + benefitPhrase2
         benefitPhrase = formatBenefitPhrase( benefitPhrase, modifier, condPhrase )
-        if benefitPhrase2 and modifier != modifier2:
-            benefitPhrase = benefitPhrase + " and " + formatBenefitPhrase( benefitPhrase2, modifier2, condPhrase )
         if not condPhrase:
             # .capitalize doesn't work because it lowercases all other letters
             benefitPhrase = "%s%s" % ( benefitPhrase[ 0 ].upper(), benefitPhrase[ 1: ] )
+        elif modifier == "turn":
+            condPhrase = "At start of turn, i" + condPhrase[ 1: ]
         description += condPhrase + benefitPhrase + ". "
 
     # beast innate transformation skill
@@ -228,7 +223,7 @@ def renderWeaponText( weaponType, moveType, power ):
             "to any ally, unit transforms (otherwise, unit reverts). If unit transforms, " + beastMoveSkill[ moveType ]
     # dagger innate smoke skill
     if weaponType == "dagger":
-        weightMax = powerToWeight[ power ]
+        weight -= 5
         daggerSmoke = next( ( benefit for benefit in benefitData if benefit[ "type" ] == "InflictDebuffSmoke" ), None )
         # 25% shot of something better than basic def/res smoke
         if newPhraseCheck( weight, 3, weightMax, .25 ):
