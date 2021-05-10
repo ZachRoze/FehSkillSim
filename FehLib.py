@@ -37,6 +37,8 @@ def renderWeaponText( weaponType, moveType, power ):
         "strong" : 25,
         "broken" : 30
     }
+    # used for calculating basic effects
+    maxPower = powerToWeight[ "broken" ]
     modifierToWeight = {
         "combat" : 3,
         "turn" : 2,
@@ -119,9 +121,8 @@ def renderWeaponText( weaponType, moveType, power ):
     if weaponType == "dagger":
         weight += 5
 
-    # Basic starter effects
-    # 25% chance of effective damage
-    if random.random() < .25:
+    # Basic starter effects, based on power level
+    if random.random() < powerToWeight[ power ] / ( maxPower * 2.5 ):
         effDamage = random.choice( [ "armored", "cavalry", "flying", "dragon", "beast", "armored and cavalry", "beast and dragon "] )
         # Bow inate flier effectiveness
         if weaponType == "bow":
@@ -134,20 +135,20 @@ def renderWeaponText( weaponType, moveType, power ):
     # staff gets one of wrazzle dazzle
     if weaponType == "staff":
         description += random.choice( [ "Foe cannot counterattack. ", "Calcuates damage from staff like other weapons. " ] )
-    # 75% chance of having a basic stat buff
-    if random.random() < .75:
+    # Basic stat buff
+    if random.random() < powerToWeight[ power ] / maxPower:
         stat = random.choice( [ "Atk", "Spd", "Def", "Res" ] )
         description += "Grants %s+3. " % stat
         weight += 1
-    # 40% chance of slaying
-    if random.random() < .40 and weaponType != "staff":
+    # Slaying effect
+    if random.random() < powerToWeight[ power ] / ( maxPower * 2 ) and weaponType != "staff":
         description += "Accelerates Special trigger (cooldown count-1). "
         weight += 2
     # 25% chance of neutralizing an effective bonus, but not both
-    if moveType != "infantry" and random.random() < .25:
+    if moveType != "infantry" and random.random() < powerToWeight[ power ] / ( maxPower * 3 ):
         description += "Neutralizes \"effective against %s\" bonuses. " % moveType
         weight += 2
-    elif ( weaponType == "dragon" or weaponType == "beast" ) and random.random() < .25:
+    elif ( weaponType == "dragon" or weaponType == "beast" ) and random.random() < powerToWeight[ power ] / ( maxPower * 3 ):
         description += "Neutralizes \"effective against %s\" bonuses. " % weaponType
         weight += 2
     
