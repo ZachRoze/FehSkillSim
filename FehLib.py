@@ -6,6 +6,20 @@ import json
 # Wrazzle Dazzle
 # Picture formatting?
 
+# Json object formatting
+# type = What type of effect of condition or benefit, used for not getting duplicates
+# text = Text string that might be formatted
+# flavor = List of options that will be randomly picked to be in the sting, includes weight for power calcing
+# flavor2 = Second list of options, include weight for power calcing
+# stats = grants random number from 5 to 7 for any stats in phrase
+# combat = "during combat"
+# turn = "at start of turn"
+# after = "after combat"
+# always = effect always happens, i.e. Pass
+# weight = power calcing
+# reroll = chance of not selecting phrase, so less common phrases picked less than average. High reroll = rare. Null reroll = No reroll
+# Some types are shared, for these, there are usual conditions (no reroll) and rare conditions (high reroll)
+
 def newPhraseCheck( curWeight, addedWeight, weightMax, randomCheck ):
     if curWeight + addedWeight > weightMax:
         return False
@@ -30,11 +44,12 @@ def formatBenefitPhrase( benefitPhrase, modifier, condPhrase ):
 def renderWeaponText( weaponType, moveType, power ):
     # Weight is how good the description is based off of set values
     # assigned to different parts of the description
+    print( "\n\n\n\n\n")
     weight = 0
     powerToWeight = {
-        "weak" : 15,
-        "decent" : 20,
-        "strong" : 25,
+        "weak" : 8,
+        "decent" : 15,
+        "strong" : 23,
         "broken" : 30
     }
     # used for calculating basic effects
@@ -79,8 +94,12 @@ def renderWeaponText( weaponType, moveType, power ):
             and condPhrase and random.random() < .40 else random.choice( filteredData )
         i = 1
         while ( previous == filteredPhrase[ "type" ]
+            or ( "reroll" in filteredPhrase and random.random() < filteredPhrase[ "reroll" ] )
             or ( weaponType == "dagger" and filteredPhrase[ "type" ] == "InflictDebuffSmoke" )
             or ( weaponType == "staff" and ( filteredPhrase[ "type" ] == "Firesweep" or filteredPhrase[ "type" ] == "Raven" ) ) ):
+            print( 'REROLL: ' + filteredPhrase["type"] )
+            if ( "reroll" in filteredPhrase ):
+                print( "Reroll chance " + str( filteredPhrase[ "reroll" ] ) )
             filteredPhrase = random.choice( filteredData )
             i += 1
             if i > 20:
@@ -90,11 +109,11 @@ def renderWeaponText( weaponType, moveType, power ):
 
         previous = filteredPhrase[ "type" ]
         
-        print( types )
         types[ "combat" ] = "combat" in filteredPhrase and types[ "combat" ]
         types[ "turn" ] = "turn" in filteredPhrase and types[ "turn" ]
         types[ "after" ] = "after" in filteredPhrase and types[ "after" ]
         types[ "always" ] = "always" in filteredPhrase and types[ "always" ]
+        print( previous )
         filteredString = filteredPhrase[ "text" ]
         print( types )
         print( filteredString )
@@ -106,7 +125,7 @@ def renderWeaponText( weaponType, moveType, power ):
             filteredFormat += tuple( flavor )
             weight += list( flavor.values() )[ 0 ]
         if "stats" in filteredPhrase:
-            filteredFormat += ( random.choice( [ 4, 5, 6, 7] ), )
+            filteredFormat += ( random.choice( [ 5, 6, 7] ), )
         if "flavor2" in filteredPhrase:
             flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
             filteredFormat += tuple( flavor2 )
@@ -161,9 +180,9 @@ def renderWeaponText( weaponType, moveType, power ):
         condPhrase = ""
         previous = None
         # 40% chance of being conditionless
-        if newPhraseCheck( weight, 7, weightMax, .60 ):
+        if newPhraseCheck( weight, 3, weightMax, .60 ):
             # conditionless
-            weight += 7
+            weight += 3
         else:
             # Get first condition
             condPhrase = "If " + getPhraseFiltered( condData )
@@ -189,22 +208,18 @@ def renderWeaponText( weaponType, moveType, power ):
         # Benefit phrase always happens
         benefitPhrase = getPhraseFiltered( benefitData )
         benefitPhrase2 = ""
-        # Chose string modifier based on current phrases
-        modifiers = { k:v for ( k,v ) in types.items() if v }
-        modifier = random.choice( list( modifiers ) )
-        weight += modifierToWeight[ modifier ]
-        modifier2 = ""
         # 50% chance of two benefits, needs an if statement
         if condPhrase and newPhraseCheck( weight, 0, weightMax, .5 ):
             # two benefits
             benefitPhrase2 = getPhraseFiltered( benefitData )
-            modifiers2 = { k:v for ( k,v ) in types.items() if v }
-            modifier2 = random.choice( list( modifiers2 ) )
-            weight += modifierToWeight[ modifier2 ]
-        # If both benefits have the same modifier, apply the same formatting to avoid redundancy
-        if modifier == modifier2:
+            # If both benefits have the same modifier, apply the same formatting to avoid redundancy
             benefitPhrase = benefitPhrase + " and " + benefitPhrase2
+        # Chose string modifier based on current phrases
+        modifiers = { k:v for ( k,v ) in types.items() if v }
+        modifier = ""
+        modifier = random.choice( list( modifiers ) )
         benefitPhrase = formatBenefitPhrase( benefitPhrase, modifier, condPhrase )
+        weight += modifierToWeight[ modifier ]
         if not condPhrase:
             # .capitalize doesn't work because it lowercases all other letters
             benefitPhrase = "%s%s" % ( benefitPhrase[ 0 ].upper(), benefitPhrase[ 1: ] )

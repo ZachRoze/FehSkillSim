@@ -13,13 +13,15 @@
         "type" : "UnitFollowUp",
         "text" : "unit can make a follow-up attack",
         "combat" : true,
-        "weight" : 2
+        "weight" : 2,
+        "reroll" : 0.4
     },
     {
         "type" : "FoeFollowUp",
         "text" : "foe can make a follow-up attack",
         "combat" : true,
-        "weight" : 1
+        "weight" : 1,
+        "reroll" : 0.5
     },
     {
         "type" : "UnitHP",
@@ -46,18 +48,20 @@
             { "<= unit's hp" : 1 },
             { ">= unit's hp" : 0 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.2
     },
     {
         "type" : "StatCheck",
-        "text" : "unit's %s",
+        "text" : "unit's %s at start of combat",
         "flavor" : [
             { "Atk > foe's Atk" : 1 },
             { "Spd > foe's Spd" : 1 },
             { "Def > foe's Def" : 1 },
             { "Res > foe's Res" : 1 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.2
     },
     {
         "type" : "UnitBuffDebuff",
@@ -66,7 +70,8 @@
             { "[Bonus]" : 1 },
             { "[Penalty]" : 0 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.2
     },
     {
         "type" : "FoeBuffDebuff",
@@ -75,7 +80,21 @@
             { "[Bonus]" : 0 },
             { "[Penalty]" : 1 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.2
+    },
+    {
+        "type" : "NearAlly",
+        "text" : "unit is %s an ally",
+        "flavor" : [
+            { "adjacent to" : 0 },
+            { "not adjacent to" : 2 },
+            { "within 2 spaces of" : 1 }
+        ],
+        "combat" : true,
+        "turn" : true,
+        "after" : true,
+        "always" : true
     },
     {
         "type" : "NearAlly",
@@ -86,7 +105,6 @@
             { "within 2 spaces of" : 1 }
         ],
         "flavor2" : [
-            { "an ally" : 0 },
             { "support partner" : 0 },
             { "a magic ally" : 0 },
             { "a sword, lance, or axe ally" : 0 },
@@ -100,13 +118,26 @@
         "combat" : true,
         "turn" : true,
         "after" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.9
+    },
+    {
+        "type" : "NearAllyNumber",
+        "text" : "number of allies within 2 spaces >= %s",
+        "flavor" : [
+            { "number of foes within 2 spaces" : 1 },
+            { "1" : 1 },
+            { "2" : 0 }
+        ],
+        "combat" : true,
+        "turn" : true,
+        "always" : true,
+        "reroll" : 0.6
     },
     {
         "type" : "NearAllyNumber",
         "text" : "number of %s within 2 spaces >= %s",
         "flavor" : [
-            { "allies" : 1 },
             { "sword, lance, or axe allies" : 0 },
             { "magic allies" : 0 },
             { "dragon allies" : 0 },
@@ -119,23 +150,34 @@
         ],
         "combat" : true,
         "turn" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.9
     },
     {
         "type" : "NearFoeNumber",
         "text" : "number of foes within 2 spaces >= %s",
         "flavor" : [
-            { "allies within 2 spaces" : 1 },
-            { "sword, lance, or axe allies within 2 spaces" : 1 },
-            { "magic allies within 2 spaces" : 1 },
-            { "dragon allies within 2 spaces" : 1 },
-            { "beast allies within 2 spaces" : 1 },
-            { "2" : 1 },
-            { "3" : 0 }
+            { "number of allies within 2 spaces" : 1 },
+            { "2" : 1 }
         ],
         "combat" : true,
         "turn" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.6
+    },
+    {
+        "type" : "NearFoeNumber",
+        "text" : "number of foes within 2 spaces >= number of %s",
+        "flavor" : [
+            { "sword, lance, or axe allies within 2 spaces" : 1 },
+            { "magic allies within 2 spaces" : 1 },
+            { "dragon allies within 2 spaces" : 1 },
+            { "beast allies within 2 spaces" : 1 }
+        ],
+        "combat" : true,
+        "turn" : true,
+        "always" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "FoeWeapon",
@@ -147,7 +189,8 @@
             { "dragonstone, magic, or staff" : 1 },
             { "dragonstone or beast damage" : 0 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.5
     },
     {
         "type" : "FoeMove",
@@ -158,7 +201,8 @@
             { "a flying" : 1 },
             { "an armored" : 1 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.5
     },
     {
         "type" : "UnitSpecial",
@@ -168,10 +212,21 @@
             { "Special cooldown count is at its maximum value" : 1 },
             { "foe's attack triggers Special" : 1 }
         ],
-        "combat" : true,
         "turn" : true,
         "after" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.6
+    },
+    {
+        "type" : "UnitSpecialCombat",
+        "text" : "%s",
+        "flavor" : [
+            { "unit's Special is ready at start of combat" : 1 },
+            { "Special cooldown count is at its maximum value at start of combat" : 1 },
+            { "foe's attack triggers Special" : 1 }
+        ],
+        "combat" : true,
+        "reroll" : 0.6
     },
     {
         "type" : "Threaten",
@@ -181,7 +236,8 @@
             { "3" : 0 },
             { "4" : 1 }
         ],
-        "turn" : true
+        "turn" : true,
+        "reroll" : 0.5
     },
     {
         "type" : "Turn",
@@ -194,6 +250,7 @@
         "combat" : true,
         "turn" : true,
         "after" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.7
     }
 ]

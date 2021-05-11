@@ -38,22 +38,45 @@
         ],
         "flavor2" : [
             { "adjacent allies" : 1 },
-            { "adjacent infantry allies" : 0 },
-            { "adjacent cavalry allies" : 0 },
-            { "adjacent flying allies" : 0 },
-            { "adjacent armor allies" : 0 },
             { "allies within 2 spaces" : 1 },
-            { "infantry allies within 2 spaces" : 0 },
-            { "cavalry allies within 2 spaces" : 0 },
-            { "flying allies within 2 spaces" : 0 },
-            { "armor allies within 2 spaces" : 0 },
             { "unit and adjacent allies" : 1 },
             { "unit and allies within 2 spaces" : 2 }
         ],
         "stats" : true,
         "turn" : true,
+        "after" : true
+    },
+    {
+        "type" : "CloseAllyStatBuff",
+        "text" : "grants %s+%d to %s",
+        "flavor" : [
+            { "Atk/Spd" : 2 },
+            { "Atk/Def" : 1 },
+            { "Atk/Res" : 1 },
+            { "Spd/Def" : 1 },
+            { "Spd/Res" : 1 },
+            { "Def/Res" : 1 },
+            { "Atk/Spd/Def" : 2 },
+            { "Atk/Spd/Res" : 2 },
+            { "Atk/Def/Res" : 2 },
+            { "Spd/Def/Res" : 1 },
+            { "Atk/Spd/Def/Res" : 3 }
+        ],
+        "flavor2" : [
+            { "adjacent infantry allies" : 0 },
+            { "adjacent cavalry allies" : 0 },
+            { "adjacent flying allies" : 0 },
+            { "adjacent armor allies" : 0 },
+            { "infantry allies within 2 spaces" : 0 },
+            { "cavalry allies within 2 spaces" : 0 },
+            { "flying allies within 2 spaces" : 0 },
+            { "armor allies within 2 spaces" : 0 }
+        ],
+        "stats" : true,
+        "turn" : true,
         "after" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "CloseAllySkillBuff",
@@ -72,21 +95,44 @@
         ],
         "flavor2" : [
             { "adjacent allies" : 1 },
-            { "adjacent infantry allies" : 0 },
-            { "adjacent cavalry allies" : 0 },
-            { "adjacent flying allies" : 0 },
-            { "adjacent armor allies" : 0 },
             { "allies within 2 spaces" : 1 },
-            { "infantry allies within 2 spaces" : 0 },
-            { "cavalry allies within 2 spaces" : 0 },
-            { "flying allies within 2 spaces" : 0 },
-            { "armor allies within 2 spaces" : 0 },
             { "unit and adjacent allies" : 1 },
             { "unit and allies within 2 spaces" : 2 }
         ],
         "turn" : true,
         "after" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.2
+    },
+    {
+        "type" : "CloseAllySkillBuff",
+        "text" : "grants %s to %s",
+        "flavor" : [
+            { "\"unit can move to a space adjacent to any ally within 2 spaces\"" : 3 },
+            { "effective against dragons" : 1 },
+            { "[Bonus Doubler]" : 3 },
+            { "movement+1" : 3 },
+            { "[Dominance]" : 4 },
+            { "[Desperation]" : 3 },
+            { "[Vantage]" : 3 },
+            { "Special cooldown count-1" : 4 },
+            { "\"If unit's Spd > foe's Spd, grants Special cooldown charge+1 per unit's attack\"" : 2 },
+            { "\"If unit's Atk > foe's Atk, grants Special cooldown charge+1 per unit's attack\"" : 2 }
+        ],
+        "flavor2" : [
+            { "adjacent infantry allies" : 0 },
+            { "adjacent cavalry allies" : 0 },
+            { "adjacent flying allies" : 0 },
+            { "adjacent armor allies" : 0 },
+            { "infantry allies within 2 spaces" : 0 },
+            { "cavalry allies within 2 spaces" : 0 },
+            { "flying allies within 2 spaces" : 0 },
+            { "armor allies within 2 spaces" : 0 }
+        ],
+        "turn" : true,
+        "after" : true,
+        "always" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "RestoreHP",
@@ -100,7 +146,8 @@
         ],
         "stats" : true,
         "turn" : true,
-        "after" : true
+        "after" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "NeutralizesPenalties",
@@ -141,7 +188,8 @@
             { "unit and allies within 2 spaces" : 6 }
         ],
         "turn" : true,
-        "after" : true
+        "after" : true,
+        "reroll" : 0.2
     },
     {
         "type" : "BasicDebuff",
@@ -181,7 +229,8 @@
             { "[Guard] on" : 3 },
             { "[Isolation] on" : 4 }
         ],
-        "after" : true
+        "after" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "SavageBlow",
@@ -191,31 +240,33 @@
             { "15" : 2 },
             { "20" : 2 }
         ],
-        "after" : true
+        "after" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "InflictPloy",
-        "text" : "inflicts %s on foes in cardinal directions with Res < unit's Res through their next actions",
+        "text" : "inflicts %s on foes in cardinal directions%s through their next actions",
         "flavor" : [
-            { "Atk-7" : 1 },
-            { "Spd-7" : 1 },
-            { "Def-7" : 1 },
-            { "Res-7" : 1 },
             { "Atk/Spd-7" : 1 },
             { "Atk/Def-7" : 1 },
             { "Atk/Res-7" : 1 },
             { "Spd/Def-7" : 1 },
             { "Spd/Res-7" : 1 },
             { "Atk/Spd/Def/Res-7" : 2 },
-            { "[Deep Wounds]" : 3 },
-            { "[Gravity]" : 3 },
-            { "[Panic]" : 3 },
-            { "Special cooldown count+1" : 5 },
-            { "status preventing counterattacks" : 4 },
-            { "[Guard]" : 3 },
-            { "[Isolation]" : 4 }
+            { "[Deep Wounds]" : 2 },
+            { "[Gravity]" : 2 },
+            { "[Panic]" : 2 },
+            { "Special cooldown count+1" : 3 },
+            { "status preventing counterattacks" : 3 },
+            { "[Guard]" : 2 },
+            { "[Isolation]" : 3 }
         ],
-        "turn" : true
+        "flavor2" : [
+            { "" : 1 },
+            { "with Res < unit's Res" : 0 }
+        ],
+        "turn" : true,
+        "reroll" : 0.6
     },
     {
         "type" : "InflictSabotage",
@@ -239,7 +290,8 @@
             { "[Guard]" : 4 },
             { "[Isolation]" : 5 }
         ],
-        "turn" : true
+        "turn" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "InflictNearestDebuff",
@@ -263,7 +315,8 @@
             { "[Guard]" : 2 },
             { "[Isolation]" : 2 }
         ],
-        "turn" : true
+        "turn" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "InflictChill",
@@ -300,7 +353,8 @@
             { "Spd+Res total" : 1 },
             { "Atk+Spd+Def+Res total" : 1 }
         ],
-        "turn" : true
+        "turn" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "MovementSelf",
@@ -316,27 +370,36 @@
             { "to a space adjacent to any ally if that ally's HP <= 50%" : 2 },
             { "1 extra space" : 3 }
         ],
-        "always" : true
+        "always" : true,
+        "reroll" : 0.3
+    },
+    {
+        "type" : "MovementAllies",
+        "text" : "%s allies within 2 spaces can move to a space adjacent to unit",
+        "flavor" : [
+            { "flying" : 1 },
+            { "infantry and armored" : 2 },
+            { "infantry and flying" : 2 },
+            { "infantry, armored, and flying" : 2 },
+            { "any" : 3 }
+        ],
+        "turn" : true,
+        "always" : true,
+        "reroll" : 0.2
     },
     {
         "type" : "MovementAllies",
         "text" : "%s allies within 2 spaces can move to a space adjacent to unit",
         "flavor" : [
             { "armored" : 1 },
-            { "cavalry" : 1 },
-            { "flying" : 1 },
             { "infantry" : 1 },
             { "dragon" : 1 },
             { "beast" : 1 },
-            { "infantry and armored" : 2 },
-            { "infantry and flying" : 2 },
-            { "infantry and cavalry" : 2 },
-            { "dragon and beast" : 1 },
-            { "infantry, armored, and flying" : 2 },
-            { "any" : 3 }
+            { "dragon and beast" : 1 }
         ],
         "turn" : true,
-        "always" : true
+        "always" : true,
+        "reroll" : 0.5
     },
     {
         "type" : "Unity",
@@ -354,7 +417,8 @@
             { "Spd/Def/Res" : 3 },
             { "Atk/Spd/Def/Res" : 5 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.5
     },
     {
         "type" : "Broadleaf",
@@ -364,7 +428,8 @@
             { "Atk/Spd" : 5 },
             { "Def/Res" : 3 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "Recoil",
@@ -376,7 +441,8 @@
             { "unit and allies within 2 spaces" : 2 }
         ],
         "stats" : true,
-        "turn" : true
+        "turn" : true,
+        "reroll" : 0.9
     },
     {
         "type" : "Session",
@@ -394,7 +460,8 @@
             { "Spd/Def/Res" : 1 },
             { "Atk/Spd/Def/Res" : 3 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.9
     },
     {
         "type" : "BonusDoubler",
@@ -412,7 +479,8 @@
             { "Spd/Def/Res" : 1 },
             { "Atk/Spd/Def/Res" : 3 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "BladeTome",
@@ -421,19 +489,22 @@
             { "Atk" : 2 },
             { "Atk/Spd" : 3 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "Counter",
         "text" : "unit can counterattack regardless of foe's range",
         "always" : true,
-        "weight" : 4
+        "weight" : 4,
+        "reroll" : 0.2
     },
     {
         "type" : "IgnoreAdaptive",
         "text" : "disable foe's skills that \"calculate damage using the lower of foe's Def or Res\"",
         "combat" : true,
-        "weight" : 2
+        "weight" : 2,
+        "reroll" : 0.7
     },
     {
         "type" : "Blade",
@@ -448,46 +519,35 @@
         "type" : "Guard",
         "text" : "inflicts Special cooldown charge -1 on foe per attack",
         "combat" : true,
-        "weight" : 3
+        "weight" : 4
     },
     {
         "type" : "AdaptiveDamage",
         "text" : "calculates damage using the lower of foe's Def or Res",
         "combat" : true,
-        "weight" : 2
-    },
-    {
-        "type" : "Ruse",
-        "text" : "inflicts %s-%d and [Guard] on foes in cardinal directions of unit through their next actions",
-        "flavor" : [
-            { "Atk/Spd" : 4 },
-            { "Atk/Def" : 4 },
-            { "Atk/Res" : 4 },
-            { "Spd/Def" : 4 },
-            { "Spd/Res" : 4 },
-            { "Def/Res" : 4 }
-        ],
-        "stats" : true,
-        "turn" : true,
-        "after" : true
+        "weight" : 2,
+        "reroll" : 0.4
     },
     {
         "type" : "Firesweep",
         "text" : "foe cannot counterattack",
         "combat" : true,
-        "weight" : 5
+        "weight" : 5,
+        "reroll" : 0.2
     },
     {
         "type" : "WoDao",
         "text" : "deals +10 damage when Special triggers",
         "always" : true,
-        "weight" : 3
+        "weight" : 3,
+        "reroll" : 0.2
     },
     {
         "type" : "StatlessDamageReduction",
         "text" : "reduces damage from attacks and from area-of-effect Specials by 40%%",
         "combat" : true,
-        "weight" : 5
+        "weight" : 5,
+        "reroll" : 0.5
     },
     {
         "type" : "StatDamageReduction",
@@ -498,31 +558,36 @@
             { "Def" : 4 },
             { "Res" : 4 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "Desperation",
         "text" : "unit can make a follow-up attack before foe can counterattack",
         "combat" : true,
-        "weight" : 3
+        "weight" : 3,
+        "reroll" : 0.3
     },
     {
         "type" : "Vantage",
         "text" : "unit can attack before foe's first attack",
         "combat" : true,
-        "weight" : 2
+        "weight" : 3,
+        "reroll" : 0.6
     },
     {
         "type" : "HardyBearing",
         "text" : "disables unit's and foe's skills that change attack priority",
         "combat" : true,
-        "weight" : 3
+        "weight" : 3,
+        "reroll" : 0.5
     },
     {
         "type" : "Brave",
         "text" : "unit attacks twice",
         "combat" : true,
-        "weight" : 3
+        "weight" : 3,
+        "reroll" : 0.5
     },
     {
         "type" : "LungeAndStuff",
@@ -533,7 +598,8 @@
             { "target foe moves 1 space away after combat" : 1 },
             { "unit moves 1 space away after combat and target foe moves to unit's previous space" : 1 }
         ],
-        "after" : true
+        "after" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "OffensiveNFU",
@@ -563,19 +629,22 @@
         "type" : "NullC",
         "text" : "neutralizes effects that prevent unit's counterattacks",
         "combat" : true,
-        "weight" : 4
+        "weight" : 4,
+        "reroll" : 0.4
     },
     {
         "type" : "NullBlade",
         "text" : "neutralizes effects that grant \"Special cooldown charge +X\" to foe",
         "combat" : true,
-        "weight" : 2
+        "weight" : 2,
+        "reroll" : 0.8
     },
     {
         "type" : "NullGuard",
         "text" : "neutralizes effects that inflict \"Special cooldown charge -X\" on unit",
         "combat" : true,
-        "weight" : 2
+        "weight" : 2,
+        "reroll" : 0.8
     },
     {
         "type" : "GuardBearing",
@@ -585,7 +654,8 @@
             { "40%" : 4 },
             { "50%" : 4 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.5
     },
     {
         "type" : "UrvanEffect",
@@ -595,31 +665,36 @@
             { "70%" : 4 },
             { "80%" : 4 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "Pass",
         "text" : "unit can move through foes' spaces",
         "always" : true,
-        "weight" : 1
+        "weight" : 1,
+        "reroll" : 0.8
     },
     {
         "type" : "Obstruct",
         "text" : "foes cannot move through spaces adjacent to unit",
         "always" : true,
-        "weight" : 1
+        "weight" : 1,
+        "reroll" : 0.8
     },
     {
         "type" : "PoisonStrike",
         "text" : "deals 10 damage to foe",
         "after" : true,
-        "weight" : 1
+        "weight" : 1,
+        "reroll" : 0.8
     },
     {
         "type" : "Galeforce",
-        "text" : "grants another action to unit",
+        "text" : "grants another action to unit (once per turn)",
         "after" : true,
-        "weight" : 5
+        "weight" : 5,
+        "reroll" : 0.8
     },
     {
         "type" : "Canto",
@@ -628,17 +703,19 @@
             { "[Canto (Rem. +1)]" : 5 },
             { "[Canto (Rem.)]" : 4 }
         ],
-        "always" : true
+        "always" : true,
+        "reroll" : 0.7
     },
     {
-        "type" : "TimesPulse",
+        "type" : "TimesPulseSpecialSpiral",
         "text" : "grants Special cooldown count%s",
         "flavor" : [
             { "-1" : 4 },
             { "-2" : 5 }
         ],
         "turn" : true,
-        "after" : true
+        "after" : true,
+        "reroll" : 0.4
     },
     {
         "type" : "Sol",
@@ -648,7 +725,8 @@
             { "40%" : 4 },
             { "50%" : 4 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "AstraBlade",
@@ -657,7 +735,8 @@
             { "Def" : 4 },
             { "Res" : 4 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "DifferenceTrue",
@@ -668,7 +747,8 @@
             { "Def" : 2 },
             { "Res" : 2 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.6
     },
     {
         "type" : "RupturedSky",
@@ -679,7 +759,8 @@
             { "Def" : 5 },
             { "Res" : 5 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "TrueStat",
@@ -690,13 +771,15 @@
             { "Def" : 5 },
             { "Res" : 5 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.8
     },
     {
         "type" : "Raven",
         "text" : "grants weapon-triangle advantage against colorless foes, and inflicts weapon-triangle disadvantage on colorless foes",
         "combat" : true,
-        "weight" : 2
+        "weight" : 2,
+        "reroll" : 0.8
     },
     {
         "type" : "Owl",
@@ -714,7 +797,8 @@
             { "Spd/Def/Res" : 1 },
             { "Atk/Spd/Def/Res" : 1 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.7
     },
     {
         "type" : "Form",
@@ -732,6 +816,7 @@
             { "Spd/Def/Res" : 1 },
             { "Atk/Spd/Def/Res" : 3 }
         ],
-        "combat" : true
+        "combat" : true,
+        "reroll" : 0.7
     }
 ]
