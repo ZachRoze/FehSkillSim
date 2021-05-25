@@ -4,6 +4,7 @@ from WeaponImageGenerator import *
 
 app = Flask(__name__)
 app.config[ 'SEND_FILE_MAX_AGE_DEFAULT' ] = 0
+baseDir = os.path.abspath( os.path.dirname(__file__) )
 
 @app.route( "/", methods=[ "POST", "GET" ] )
 def index():
@@ -25,9 +26,9 @@ def index():
             weaponTextGenerator = WeaponText( weaponType, moveType, power )
             weaponTextGenerator.newWeaponText()
             weaponText = weaponTextGenerator.description
-            #newImage = WeaponImage( weaponName, weaponType, weaponTextGenerator.description, weaponTextGenerator.effAgainst )
-            #newImage.createImage()
-            imagePath = url_for( "static", filename=( "FEHImages/BeastEff.png" ) )
+            newImage = WeaponImage( weaponName, weaponType, weaponTextGenerator.description, weaponTextGenerator.effAgainst, baseDir  )
+            newImage.createImage()
+            imagePath = url_for( "static", filename=( "NewWeapon.png" ) )
             print( imagePath )
     return render_template( "index.html", weaponName=weaponName, weaponText=weaponText, weaponType=weaponType, moveType=moveType, power=power, imagePath=imagePath )
 
