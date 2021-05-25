@@ -24,7 +24,8 @@ class WeaponImage:
         baseImageFile = "FEHNewSkillTemplateEff.png" if self.effAgainst else "FEHNewSkillTemplate.png"
         print( os.path.join( "static", "FEHImages", baseImageFile ) )
 
-        self.baseImage = Image.open( os.path.join( "static", "FEHImages", baseImageFile ) )
+        self.baseImage = Image.open( "./static/FEHImages/" + baseImageFile )
+        #self.baseImage = Image.open( os.path.join( "static", "FEHImages", baseImageFile ) )
         self.draw = ImageDraw.Draw( self.baseImage )
     
     def createImage( self ):
