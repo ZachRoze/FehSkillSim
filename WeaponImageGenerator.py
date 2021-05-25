@@ -40,7 +40,6 @@ class WeaponImage:
         # Should I combine beast and dragon eff into a single image?
         
         # Weapon text
-        # print( len(self.weaponText))
         # TODO smaller font sizes need to increase the width of text wrapping
         # but they kind of depend on each other so...
         width = 67
