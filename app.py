@@ -27,7 +27,7 @@ def index():
             weaponText = weaponTextGenerator.description
             newImage = WeaponImage( weaponName, weaponType, weaponTextGenerator.description, weaponTextGenerator.effAgainst )
             newImage.createImage()
-            imagePath = url_for( "static", filename=( "NewWeapon.png" ) )
+            imagePath = url_for( "static", filename=( "FEHImages/BeastEff.png" ) )
             print( imagePath )
     return render_template( "index.html", weaponName=weaponName, weaponText=weaponText, weaponType=weaponType, moveType=moveType, power=power, imagePath=imagePath )
 
