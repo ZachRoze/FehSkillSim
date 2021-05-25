@@ -22,7 +22,7 @@ class WeaponImage:
         self.range = mtRng[ 1 ]
         self.outputFile = os.path.join( "static", "NewWeapon.png" )
         #baseImageFile = "FEHNewSkillTemplateEff.png" if self.effAgainst else "FEHNewSkillTemplate.png"
-        baseImageFile = "FEHFlier.png.png"
+        baseImageFile = "FEHFlier.png"
         print( os.path.join( "static", "FEHImages", baseImageFile ) )
 
         self.baseImage = Image.open( "static/FEHImages/" + baseImageFile )
