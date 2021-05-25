@@ -21,21 +21,18 @@ class WeaponImage:
         self.might = mtRng[ 0 ]
         self.range = mtRng[ 1 ]
         self.outputFile = os.path.join( "static", "NewWeapon.png" )
-        #baseImageFile = "FEHNewSkillTemplateEff.png" if self.effAgainst else "FEHNewSkillTemplate.png"
-        baseImageFile = "FEHFlier.png"
-        print( os.path.join( "static", "FEHImages", baseImageFile ) )
+        baseImageFile = "FEHNewSkillTemplateEff.png" if self.effAgainst else "FEHNewSkillTemplate.png"
 
         self.baseImage = Image.open( "static/FEHImages/" + baseImageFile )
-        #self.baseImage = Image.open( os.path.join( "static", "FEHImages", baseImageFile ) )
         self.draw = ImageDraw.Draw( self.baseImage )
     
     def createImage( self ):
         # Weapon Name
-        nameFont = ImageFont.truetype( os.path.join( "static", "nimbus-sans-l.bold-italic.otf" ), 40 )
+        nameFont = ImageFont.truetype( "static/nimbus-sans-l.bold-italic.otf", 40 )
         self.draw.text( ( 82, 24 ), self.weaponName, ( 0, 0, 0 ), font=nameFont )
 
         # Might and Range
-        mightRangeFont = ImageFont.truetype( os.path.join( "static", "nimbus-sans-l.bold-italic.otf" ), 24 )
+        mightRangeFont = ImageFont.truetype( "static/nimbus-sans-l.bold-italic.otf", 24 )
         self.draw.text( ( 85, 67 ), str( self.might ), ( 0, 0, 0 ), font=mightRangeFont )
         self.draw.text( ( 187, 67 ), str( self.range ), ( 0, 0, 0 ), font=mightRangeFont )
 
@@ -49,7 +46,7 @@ class WeaponImage:
         width = 67
         descriptionLines = textwrap.wrap( self.weaponText, width=width )
         fontSize = 16 if len( descriptionLines ) <= 5 else 16 - ( len( descriptionLines ) - 5 ) * 2
-        descriptionFont = ImageFont.truetype( os.path.join( "static", "nimbus-sans-l.regular-italic.otf" ), fontSize )
+        descriptionFont = ImageFont.truetype( "static/nimbus-sans-l.regular-italic.otf", fontSize )
         height = 92
         for line in descriptionLines:
             self.draw.text( ( 39, height ), line, ( 0, 0, 0 ), font=descriptionFont )
