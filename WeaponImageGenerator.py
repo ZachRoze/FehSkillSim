@@ -21,8 +21,7 @@ class WeaponImage:
         self.might = mtRng[ 0 ]
         self.range = mtRng[ 1 ]
         self.outputFile = os.path.join( "static", "NewWeapon.png" )
-        #baseImageFile = "FEHNewSkillTemplateEff.png" if self.effAgainst else "FEHNewSkillTemplate.png"
-        baseImageFile = "FEHTemp.png"
+        baseImageFile = "FEHTemp.png" if self.effAgainst else "FEHTempEff.png"
 
         self.baseImage = Image.open( "static/FEHImages/" + baseImageFile )
         self.draw = ImageDraw.Draw( self.baseImage )
