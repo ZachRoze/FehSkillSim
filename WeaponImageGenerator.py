@@ -3,12 +3,11 @@ import textwrap
 import os
 
 class WeaponImage:
-    def __init__( self, weaponName, weaponType, weaponText, effAgainst, baseDir ):
+    def __init__( self, weaponName, weaponType, weaponText, effAgainst ):
         self.weaponName = weaponName
         self.weaponType = weaponType
         self.weaponText = weaponText
         self.effAgainst = effAgainst
-        self.baseDir = baseDir
         weaponTypeToMtRng = {
             "melee" : ( 16, 1 ),
             "tome" : ( 14, 2 ),
@@ -21,19 +20,20 @@ class WeaponImage:
         mtRng = weaponTypeToMtRng[ self.weaponType ]
         self.might = mtRng[ 0 ]
         self.range = mtRng[ 1 ]
-        self.outputFile = os.path.join( self.baseDir, "static", "NewWeapon.png" )
+        self.outputFile = os.path.join( "static", "NewWeapon.png" )
         baseImageFile = "FEHNewSkillTemplateEff.png" if self.effAgainst else "FEHNewSkillTemplate.png"
+        print( os.path.join( "static", "FEHImages", baseImageFile ) )
 
-        self.baseImage = Image.open( os.path.join( self.baseDir, "static", "FEHImages", baseImageFile ) )
+        self.baseImage = Image.open( os.path.join( "static", "FEHImages", baseImageFile ) )
         self.draw = ImageDraw.Draw( self.baseImage )
     
     def createImage( self ):
         # Weapon Name
-        nameFont = ImageFont.truetype( os.path.join( self.baseDir, "static", "nimbus-sans-l.bold-italic.otf" ), 40 )
+        nameFont = ImageFont.truetype( os.path.join( "static", "nimbus-sans-l.bold-italic.otf" ), 40 )
         self.draw.text( ( 82, 24 ), self.weaponName, ( 0, 0, 0 ), font=nameFont )
 
         # Might and Range
-        mightRangeFont = ImageFont.truetype( os.path.join( self.baseDir, "static", "nimbus-sans-l.bold-italic.otf" ), 24 )
+        mightRangeFont = ImageFont.truetype( os.path.join( "static", "nimbus-sans-l.bold-italic.otf" ), 24 )
         self.draw.text( ( 85, 67 ), str( self.might ), ( 0, 0, 0 ), font=mightRangeFont )
         self.draw.text( ( 187, 67 ), str( self.range ), ( 0, 0, 0 ), font=mightRangeFont )
 
@@ -47,7 +47,7 @@ class WeaponImage:
         width = 67
         descriptionLines = textwrap.wrap( self.weaponText, width=width )
         fontSize = 16 if len( descriptionLines ) <= 5 else 16 - ( len( descriptionLines ) - 5 ) * 2
-        descriptionFont = ImageFont.truetype( os.path.join( self.baseDir, "static", "nimbus-sans-l.regular-italic.otf" ), fontSize )
+        descriptionFont = ImageFont.truetype( os.path.join( "static", "nimbus-sans-l.regular-italic.otf" ), fontSize )
         height = 92
         for line in descriptionLines:
             self.draw.text( ( 39, height ), line, ( 0, 0, 0 ), font=descriptionFont )
