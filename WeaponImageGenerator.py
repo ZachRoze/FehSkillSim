@@ -25,7 +25,7 @@ class WeaponImage:
         baseImageFile = "DragonEff.png"
         print( os.path.join( "static", "FEHImages", baseImageFile ) )
 
-        self.baseImage = Image.open( "./static/FEHImages/" + baseImageFile )
+        self.baseImage = Image.open( "static/FEHImages/" + baseImageFile )
         #self.baseImage = Image.open( os.path.join( "static", "FEHImages", baseImageFile ) )
         self.draw = ImageDraw.Draw( self.baseImage )
     
