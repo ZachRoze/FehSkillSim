@@ -4,11 +4,6 @@
     <title>Feh Skill Sim</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-<body>
-    {% if imagePath %}
-    <img src="{{ imagePath }}">
-    {% endif %}
-</body>
 <div class="content">
     <form action="/" method="POST">
         {% if weaponName %}
@@ -41,7 +36,13 @@
     </form>
 </div>
 {% if weaponName %}
-    <h1>{{weaponName}}</h1>
+    <h3>Copyable Text:</h3>
     <h3>{{weaponText}}</h3>
+    <br>
+    <br>
+{% endif %}
+{% if imagePath %}
+    <h3>Copying Image Link won't work. Save Image As or Copy Image instead</h3>
+    <img src="{{ imagePath }}">
 {% endif %}
 </html>

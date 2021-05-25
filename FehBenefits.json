@@ -245,7 +245,7 @@
     },
     {
         "type" : "InflictPloy",
-        "text" : "inflicts %s on foes in cardinal directions%s through their next actions",
+        "text" : "inflicts %s on foes in cardinal directions %s through their next actions",
         "flavor" : [
             { "Atk/Spd-7" : 1 },
             { "Atk/Def-7" : 1 },
