@@ -27,8 +27,7 @@ def index():
             weaponText = weaponTextGenerator.description
             newImage = WeaponImage( weaponName, weaponType, weaponTextGenerator.description, weaponTextGenerator.effAgainst )
             newImage.createImage()
-            imagePath = url_for( "static", filename=( "NewWeapon.png" ) )
-            print( imagePath )
+            imagePath = newImage.outputFile
     return render_template( "index.html", weaponName=weaponName, weaponText=weaponText, weaponType=weaponType, moveType=moveType, power=power, imagePath=imagePath )
 
 if __name__ == "__main__":

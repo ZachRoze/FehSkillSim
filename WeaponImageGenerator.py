@@ -1,6 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
-import os
+import hashlib
+
+# set to False if working locally for a single image file
+uniqueImageFile = True
 
 class WeaponImage:
     def __init__( self, weaponName, weaponType, weaponText, effAgainst ):
@@ -20,7 +23,11 @@ class WeaponImage:
         mtRng = weaponTypeToMtRng[ self.weaponType ]
         self.might = mtRng[ 0 ]
         self.range = mtRng[ 1 ]
-        self.outputFile = os.path.join( "static", "NewWeapon.png" )
+        if uniqueImageFile:
+            # Hash of weaponText and grab 8 final digits
+            self.outputFile = "static/NewWeapon" + hashlib.sha1( self.weaponText.encode( 'utf-8' ) ).hexdigest()[ :16 ] + ".png"
+        else:
+            self.outputFile = "static/NewWeapon.png"
         baseImageFile = "FEHTempEff.png" if self.effAgainst else "FEHTemp.png"
 
         self.baseImage = Image.open( "static/FEHImages/" + baseImageFile )
