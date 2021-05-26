@@ -3,7 +3,7 @@ import textwrap
 import hashlib
 
 # set to False if working locally for a single image file
-uniqueImageFile = False
+uniqueImageFile = True
 
 class WeaponImage:
     def __init__( self, weaponName, weaponType, weaponText, effAgainst ):
