@@ -75,13 +75,13 @@ class WeaponImage:
         print( self.effAgainst )
         
         # Weapon text
-        width = 67
+        width = 65
         fontSize = 16
         maxLines = 5
         # Loop shrinks font and increases text wrap width if description is long
         while( len( textwrap.wrap( self.weaponText, width=width ) ) > maxLines ):
             fontSize -= 2
-            width += 10
+            width += 2 * ( maxLines - 1 )
             maxLines += 1
         print( fontSize )
         print( width )
