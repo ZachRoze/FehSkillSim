@@ -72,7 +72,6 @@ class WeaponImage:
             effImage = effImage.resize( ( 105, 30 ) )
             self.baseImage.paste( effImage, ( effImageXcoord, effImageYcoord ), effImage )
             effImageXcoord += 110
-        print( self.effAgainst )
         
         # Weapon text
         width = 65
@@ -83,9 +82,6 @@ class WeaponImage:
             fontSize -= 2
             width += 2 * ( maxLines - 1 )
             maxLines += 1
-        print( fontSize )
-        print( width )
-        print( maxLines )
         descriptionLines = textwrap.wrap( self.weaponText, width=width )
         descriptionFont = ImageFont.truetype( "static/nimbus-sans-l.regular-italic.otf", fontSize )
         height = 92

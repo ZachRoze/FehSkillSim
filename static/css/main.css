@@ -1,3 +1,29 @@
 body {
+    text-align: left;
     font-family: sans-serif;
+    overflow-x: hidden;
+}
+.title {
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.inputs {
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.imageout {
+    text-align: center;
+}
+.textout {
+    text-align: left;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+#vote {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 5%;
 }

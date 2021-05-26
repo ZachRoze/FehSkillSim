@@ -4,7 +4,11 @@
     <title>Feh Skill Sim</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-<div class="content">
+<div class="title">
+    <h1>FEH Skill Simulator</h1>
+    <h4>Created by SloshDarnIt</h4>
+</div>
+<div class="inputs">
     <form action="/" method="POST">
         {% if weaponName %}
         <input type="text" name="weaponName" id="weaponName" value="{{weaponName}}">
@@ -35,16 +39,20 @@
         <input type="submit" value="Generate">
     </form>
 </div>
-{% if weaponName %}
-    <h3>Copyable Text:</h3>
-    <h3>{{weaponText}}</h3>
-    <br>
-    <br>
-{% endif %}
+<br>
+<div class="imageout">
 {% if imagePath %}
-    <h3>Image links aren't permanent.<br>
-        Please reupload image to a different site if you wan't to keep the image!
+    <h3><b>Image links aren't permanent.<br>
+        Please reupload image to a different site if you wan't to keep the image!</b>
     </h3>
     <img src="{{ imagePath }}">
 {% endif %}
+</div>
+<div class="textout">
+{% if weaponName %}
+    <h3>Copyable Text:</h3>
+    <h3>{{weaponText}}</h3>
+{% endif %}
+</div>
+<div id="vote">Vote Elincia for CYL6!</div>
 </html>
