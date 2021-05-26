@@ -3,7 +3,7 @@ import textwrap
 import hashlib
 
 # set to False if working locally for a single image file
-uniqueImageFile = True
+uniqueImageFile = False
 
 class WeaponImage:
     def __init__( self, weaponName, weaponType, weaponText, effAgainst ):
@@ -45,6 +45,34 @@ class WeaponImage:
 
         # TODO Effective images need to be pasted
         # Should I combine beast and dragon eff into a single image?
+        effImageXcoord = 264
+        effImageYcoord = 63
+        if "flying" in self.effAgainst:
+            effImage = Image.open( "static/FEHImages/FEHFlier.png" )
+            effImage = effImage.resize( ( 26, 26 ) )
+            self.baseImage.paste( effImage, ( effImageXcoord, effImageYcoord ), effImage )
+            effImageXcoord += 31
+        if "armored" in self.effAgainst:
+            effImage = Image.open( "static/FEHImages/FEHArmor.png" )
+            effImage = effImage.resize( ( 26, 26 ) )
+            self.baseImage.paste( effImage, ( effImageXcoord, effImageYcoord ), effImage )
+            effImageXcoord += 31
+        if "cavalry" in self.effAgainst:
+            effImage = Image.open( "static/FEHImages/FEHCavalry.png" )
+            effImage = effImage.resize( ( 26, 26 ) )
+            self.baseImage.paste( effImage, ( effImageXcoord, effImageYcoord ), effImage )
+            effImageXcoord += 31
+        if "dragon" in self.effAgainst:
+            effImage = Image.open( "static/FEHImages/DragonEff.png" )
+            effImage = effImage.resize( ( 105, 30 ) )
+            self.baseImage.paste( effImage, ( effImageXcoord, effImageYcoord ), effImage )
+            effImageXcoord += 110
+        if "beast" in self.effAgainst:
+            effImage = Image.open( "static/FEHImages/BeastEff.png" )
+            effImage = effImage.resize( ( 105, 30 ) )
+            self.baseImage.paste( effImage, ( effImageXcoord, effImageYcoord ), effImage )
+            effImageXcoord += 110
+        print( self.effAgainst )
         
         # Weapon text
         width = 67
@@ -53,13 +81,12 @@ class WeaponImage:
         # Loop shrinks font and increases text wrap width if description is long
         while( len( textwrap.wrap( self.weaponText, width=width ) ) > maxLines ):
             fontSize -= 2
-            width += 12
+            width += 10
             maxLines += 1
-        descriptionLines = textwrap.wrap( self.weaponText, width=width )
-        print( width )
         print( fontSize )
+        print( width )
         print( maxLines )
-        print( len( descriptionLines ) )
+        descriptionLines = textwrap.wrap( self.weaponText, width=width )
         descriptionFont = ImageFont.truetype( "static/nimbus-sans-l.regular-italic.otf", fontSize )
         height = 92
         for line in descriptionLines:
