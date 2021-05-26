@@ -47,11 +47,19 @@ class WeaponImage:
         # Should I combine beast and dragon eff into a single image?
         
         # Weapon text
-        # TODO smaller font sizes need to increase the width of text wrapping
-        # but they kind of depend on each other so...
         width = 67
+        fontSize = 16
+        maxLines = 5
+        # Loop shrinks font and increases text wrap width if description is long
+        while( len( textwrap.wrap( self.weaponText, width=width ) ) > maxLines ):
+            fontSize -= 2
+            width += 12
+            maxLines += 1
         descriptionLines = textwrap.wrap( self.weaponText, width=width )
-        fontSize = 16 if len( descriptionLines ) <= 5 else 16 - ( len( descriptionLines ) - 5 ) * 2
+        print( width )
+        print( fontSize )
+        print( maxLines )
+        print( len( descriptionLines ) )
         descriptionFont = ImageFont.truetype( "static/nimbus-sans-l.regular-italic.otf", fontSize )
         height = 92
         for line in descriptionLines:

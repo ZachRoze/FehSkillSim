@@ -14,14 +14,14 @@
         "text" : "unit can make a follow-up attack",
         "combat" : true,
         "weight" : 2,
-        "reroll" : 0.4
+        "reroll" : 0.5
     },
     {
         "type" : "FoeFollowUp",
         "text" : "foe can make a follow-up attack",
         "combat" : true,
         "weight" : 1,
-        "reroll" : 0.5
+        "reroll" : 0.8
     },
     {
         "type" : "UnitHP",
