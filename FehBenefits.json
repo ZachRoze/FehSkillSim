@@ -367,7 +367,7 @@
             { "to a space adjacent to any ally within 2 spaces" : 2 },
             { "to a space adjacent to any infantry ally within 2 spaces" : 1 },
             { "to a space adjacent to any flying ally within 2 spaces" : 1 },
-            { "to a space adjacent to any ally if that ally's HP <= 50%" : 2 },
+            { "to a space adjacent to any ally if that ally's HP ≤ 50%" : 2 },
             { "1 extra space" : 3 }
         ],
         "always" : true,

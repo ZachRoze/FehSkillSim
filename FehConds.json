@@ -27,9 +27,9 @@
         "type" : "UnitHP",
         "text" : "unit's HP %s",
         "flavor" : [
-            { ">= 25%" : 2 },
+            { "≥ 25%" : 2 },
             { "= 100%" : 1 },
-            { "<= 75%" : 1 },
+            { "≤ 75%" : 1 },
             { "< 100%" : 1 }
         ],
         "combat" : true,
@@ -41,12 +41,12 @@
         "type" : "FoeHP",
         "text" : "foe's HP %s",
         "flavor" : [
-            { ">= 25%" : 2 },
+            { "≥ 25%" : 2 },
             { "= 100%" : 1 },
-            { "<= 75%" : 0 },
+            { "≤ 75%" : 0 },
             { "< 100%" : 0 },
-            { "<= unit's hp" : 1 },
-            { ">= unit's hp" : 0 }
+            { "≤ unit's hp" : 1 },
+            { "≥ unit's hp" : 0 }
         ],
         "combat" : true,
         "reroll" : 0.2
@@ -123,7 +123,7 @@
     },
     {
         "type" : "NearAllyNumber",
-        "text" : "number of allies within 2 spaces >= %s",
+        "text" : "number of allies within 2 spaces ≥ %s",
         "flavor" : [
             { "number of foes within 2 spaces" : 1 },
             { "1" : 1 },
@@ -136,7 +136,7 @@
     },
     {
         "type" : "NearAllyNumber",
-        "text" : "number of %s within 2 spaces >= %s",
+        "text" : "number of %s within 2 spaces ≥ %s",
         "flavor" : [
             { "sword, lance, or axe allies" : 0 },
             { "magic allies" : 0 },
@@ -155,7 +155,7 @@
     },
     {
         "type" : "NearFoeNumber",
-        "text" : "number of foes within 2 spaces >= %s",
+        "text" : "number of foes within 2 spaces ≥ %s",
         "flavor" : [
             { "number of allies within 2 spaces" : 1 },
             { "2" : 1 }
@@ -167,7 +167,7 @@
     },
     {
         "type" : "NearFoeNumber",
-        "text" : "number of foes within 2 spaces >= number of %s",
+        "text" : "number of foes within 2 spaces ≥ number of %s",
         "flavor" : [
             { "sword, lance, or axe allies within 2 spaces" : 1 },
             { "magic allies within 2 spaces" : 1 },

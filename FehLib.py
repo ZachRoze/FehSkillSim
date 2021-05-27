@@ -43,9 +43,9 @@ class WeaponText:
         }
         self.effAgainst = ""
         # Load json files
-        with open( "FehConds.json" ) as file:
+        with open( "FehConds.json", encoding='utf-8' ) as file:
             self.condData = json.load( file )
-        with open( "FehBenefits.json" ) as file:
+        with open( "FehBenefits.json", encoding='utf-8' ) as file:
             self.benefitData = json.load( file )
 
     def newPhraseCheck( self, addedWeight, randomCheck ):
