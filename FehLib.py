@@ -1,9 +1,6 @@
 import random
 import json
 
-#TODO 5/7
-# Picture formatting?
-
 # Json object formatting
 # type = What type of effect of condition or benefit, used for not getting duplicates
 # text = Text string that might be formatted
@@ -192,9 +189,6 @@ class WeaponText:
                         # no weight on two conditional "and"
                         self.condPhrase += ", and if "
                     secondCondPhrase = self.getPhraseFiltered( self.condData )
-                    # TODO we shouldn't need this while loop, should be handled by prevoius. Need to test
-                    while ( secondCondPhrase in self.condPhrase ):
-                        secondCondPhrase = self.getPhraseFiltered( self.condData )
                     self.condPhrase += secondCondPhrase
 
                 self.condPhrase += ", "
