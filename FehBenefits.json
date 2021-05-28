@@ -368,7 +368,7 @@
             { "to a space adjacent to any infantry ally within 2 spaces" : 1 },
             { "to a space adjacent to any flying ally within 2 spaces" : 1 },
             { "to a space adjacent to any ally if that ally's HP ≤ 50%" : 2 },
-            { "1 extra space" : 3 }
+            { "1 extra space" : 5 }
         ],
         "always" : true,
         "reroll" : 0.3
@@ -496,7 +496,7 @@
         "type" : "Counter",
         "text" : "unit can counterattack regardless of foe's range",
         "always" : true,
-        "weight" : 4,
+        "weight" : 6,
         "reroll" : 0.2
     },
     {
@@ -586,7 +586,7 @@
         "type" : "Brave",
         "text" : "unit attacks twice",
         "combat" : true,
-        "weight" : 3,
+        "weight" : 5,
         "reroll" : 0.5
     },
     {
@@ -605,25 +605,25 @@
         "type" : "OffensiveNFU",
         "text" : "neutralizes effects that prevent unit's follow-up attacks",
         "combat" : true,
-        "weight" : 3
+        "weight" : 4
     },
     {
         "type" : "DefensiveNFU",
         "text" : "neutralizes effects that guarantee foe's follow-up attacks",
         "combat" : true,
-        "weight" : 3
+        "weight" : 4
     },
     {
         "type" : "FollowUpGuaranteed",
         "text" : "unit makes a guaranteed follow-up attack",
         "combat" : true,
-        "weight" : 3
+        "weight" : 6
     },
     {
         "type" : "FollowUpPrevented",
         "text" : "foe cannot make a follow-up attack",
         "combat" : true,
-        "weight" : 3
+        "weight" : 5
     },
     {
         "type" : "NullC",
@@ -650,9 +650,9 @@
         "type" : "GuardBearing",
         "text" : "reduces damage from foe's first attack by %s",
         "flavor" : [
-            { "30%" : 3 },
-            { "40%" : 4 },
-            { "50%" : 4 }
+            { "30%" : 4 },
+            { "40%" : 5 },
+            { "50%" : 5 }
         ],
         "combat" : true,
         "reroll" : 0.5
@@ -693,7 +693,7 @@
         "type" : "Galeforce",
         "text" : "grants another action to unit (once per turn)",
         "after" : true,
-        "weight" : 5,
+        "weight" : 6,
         "reroll" : 0.8
     },
     {
