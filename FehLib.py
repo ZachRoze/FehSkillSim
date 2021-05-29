@@ -1,6 +1,13 @@
 import random
 import json
 
+# TODO 5/27
+# Add random for all types
+# Slightly tie new phrases weight to power level input, higher weight = less likely to get 0 weight stuff
+# Split number of foes/allies into different objects to include "excluding"
+# Add compatibility checks for conds and benefits (e.g. blow + vantage)
+# Add effective against Inf, Tome, and possibly Y!Caeda's stupid stuff
+
 # Json object formatting
 # type = What type of effect of condition or benefit, used for not getting duplicates
 # text = Text string that might be formatted
@@ -67,22 +74,70 @@ class WeaponText:
             if "grant" in self.benefitPhrase and "Special cooldown count-" not in self.benefitPhrase \
                 and "restores" not in self.benefitPhrase:
                 self.benefitPhrase = self.benefitPhrase + " for 1 turn"
+    
+    # returns True if phrase should be regenerated
+    def checkPhrase( self, phrase, flavor, flavor2 ):
+        type = phrase[ "type" ]
+        reroll = phrase[ "reroll" ] if "reroll" in phrase else 0
+        # not same phrase in same sentence
+        if self.previous == type:
+            return True
+        # rare phrases have a chance to be rerolled
+        if random.random() < reroll:
+            return True
+        # Weapon - Type checks
+        if self.weaponType == "dagger" and type == "InflictDebuffSmoke":
+            return True
+        if self.weaponType == "staff" and ( type == "Firesweep" or type == "Raven" ):
+            return True
+        # Redundancy check with beast innate skills
+        # Cavalry impact requires initiation, we can ignore that
+        if self.weaponType == "beast":
+            if self.moveType == "infantry" and type == "WoDao":
+                return True
+            if self.moveType == "flying" and type == "TempestMove":
+                return True
+            if self.moveType == "armored" and type == "Counter":
+                return True
+        # Weight checks
+        newWeight = 0
+        if flavor:
+            newWeight += list( flavor.values() )[ 0 ]
+        if flavor2:
+            newWeight += list( flavor2.values() )[ 0 ]
+        if "weight" in phrase:
+            newWeight += phrase[ "weight" ]
+        # Is less than max weight, or is cheap filler
+        if newWeight + self.weight < self.weightMax or newWeight < 5:
+            return False
+        return True
+        
 
     # Gets all phrases based on current sentence
     def getPhraseFiltered( self, data ):
+        flavor = ""
+        flavor2 = ""
         filteredData = [ phrase for phrase in data if ( "combat" in phrase and self.types[ "combat" ] )
                                                     or ( "turn" in phrase and self.types[ "turn" ] )
                                                     or ( "after" in phrase and self.types[ "after" ] )
                                                     or ( "always" in phrase and self.types[ "always" ] ) ]
-        # 40% bias towards StatBuffs
+        # 40% bias towards StatBuffs, if there is a conditional phrase already
         filteredPhrase = filteredData[ 0 ] if filteredData[ 0 ][ "type" ] == "StatBuff" \
             and self.condPhrase and random.random() < .40 else random.choice( filteredData )
+        if "flavor" in filteredPhrase:
+            flavor = random.choice( filteredPhrase[ "flavor"] )
+        if "flavor2" in filteredPhrase:
+            flavor2 = random.choice( filteredPhrase[ "flavor2"] )
         i = 1
-        while ( self.previous == filteredPhrase[ "type" ]
-            or ( "reroll" in filteredPhrase and random.random() < filteredPhrase[ "reroll" ] )
-            or ( self.weaponType == "dagger" and filteredPhrase[ "type" ] == "InflictDebuffSmoke" )
-            or ( self.weaponType == "staff" and ( filteredPhrase[ "type" ] == "Firesweep" or filteredPhrase[ "type" ] == "Raven" ) ) ):
+        while ( self.checkPhrase( filteredPhrase, flavor, flavor2 ) ):
+            flavor = ""
+            flavor2 = ""
             filteredPhrase = random.choice( filteredData )
+            if "flavor" in filteredPhrase:
+                flavor = random.choice( filteredPhrase[ "flavor"] )
+            if "flavor2" in filteredPhrase:
+                flavor2 = random.choice( filteredPhrase[ "flavor2"] )
+            # Emergency stop in case no phrase is compatible
             i += 1
             if i > 20:
                 print( self.description )
@@ -99,18 +154,16 @@ class WeaponText:
         filteredFormat = ()
 
         # String formatting
-        if "flavor" in filteredPhrase:
-            flavor = random.choice( filteredPhrase[ "flavor" ] )
+        if flavor:
             filteredFormat += tuple( flavor )
             self.weight += list( flavor.values() )[ 0 ]
         if "stats" in filteredPhrase:
-            filteredFormat += ( random.choice( [ 5, 6, 7] ), )
+            filteredFormat += ( random.choice( [ 5, 6, 7 ] ), )
         if "flavor2" in filteredPhrase:
-            flavor2 = random.choice( filteredPhrase[ "flavor2" ] )
             filteredFormat += tuple( flavor2 )
             self.weight += list( flavor2.values() )[ 0 ]
         filteredString = filteredPhrase[ "text" ] % filteredFormat
-        # Update weight for benefits
+        # Update weight
         if "weight" in filteredPhrase:
             self.weight += filteredPhrase[ "weight" ]
         return filteredString
