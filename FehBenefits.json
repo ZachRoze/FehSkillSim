@@ -492,8 +492,8 @@
         "text" : "grants bonus to Atk = total bonuses on %s",
         "flavor" : [
             { "unit" : 3 },
-            { "adjacent ally with the highest total bonuses" : 4 },
-            { "ally with the highest total bonuses within 2 spaces" : 5 }
+            { "adjacent ally with the highest total bonuses" : 5 },
+            { "ally with the highest total bonuses within 2 spaces" : 6 }
         ],
         "combat" : true,
         "reroll" : 0.7
