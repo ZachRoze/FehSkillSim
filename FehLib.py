@@ -183,6 +183,8 @@ class WeaponText:
         # Basic starter effects, based on power level
         if random.random() < self.weightMax / ( self.maxPower * 2.5 ):
             effDamage = random.choice( [ "armored", "cavalry", "flying", "dragon", "beast", "armored and cavalry", "beast and dragon "] )
+            if "and" in effDamage:
+                self.weight += 2
             # Bow inate flier effectiveness
             if self.weaponType == "bow" and effDamage != "flying":
                 effDamage = ( "flying, " + effDamage ) if "and" in effDamage else ( "flying and " + effDamage )

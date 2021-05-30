@@ -84,10 +84,11 @@
         "flavor" : [
             { "\"unit can move to a space adjacent to any ally within 2 spaces\"" : 3 },
             { "effective against dragons" : 1 },
-            { "[Bonus Doubler]" : 4 },
+            { "[Bonus Doubler]" : 3 },
             { "[Dominance]" : 4 },
-            { "[Desperation]" : 3 },
+            { "[Desperation]" : 4 },
             { "[Vantage]" : 4 },
+            { "[Null Panic]" : 4 },
             { "Special cooldown count-1" : 4 },
             { "\"If unit's Spd > foe's Spd, grants Special cooldown charge+1 per unit's attack\"" : 2 },
             { "\"If unit's Atk > foe's Atk, grants Special cooldown charge+1 per unit's attack\"" : 2 }
@@ -111,8 +112,9 @@
             { "effective against dragons" : 1 },
             { "[Bonus Doubler]" : 3 },
             { "[Dominance]" : 4 },
-            { "[Desperation]" : 3 },
-            { "[Vantage]" : 3 },
+            { "[Desperation]" : 4 },
+            { "[Vantage]" : 4 },
+            { "[Null Panic]" : 4 },
             { "Special cooldown count-1" : 4 },
             { "\"If unit's Spd > foe's Spd, grants Special cooldown charge+1 per unit's attack\"" : 2 },
             { "\"If unit's Atk > foe's Atk, grants Special cooldown charge+1 per unit's attack\"" : 2 }
@@ -487,10 +489,11 @@
     },
     {
         "type" : "BladeTome",
-        "text" : "grants bonus to %s = total bonuses on unit",
+        "text" : "grants bonus to Atk = total bonuses on %s",
         "flavor" : [
-            { "Atk" : 3 },
-            { "Atk/Spd" : 4 }
+            { "unit" : 3 },
+            { "adjacent ally with the highest total bonuses" : 4 },
+            { "ally with the highest total bonuses within 2 spaces" : 5 }
         ],
         "combat" : true,
         "reroll" : 0.7
