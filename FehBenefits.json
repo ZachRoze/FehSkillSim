@@ -216,18 +216,18 @@
     },
     {
         "type" : "InflictDebuffSmoke",
-        "text" : "if unit attacked, inflicts %s foe and foes within 2 spaces of target through their next actions",
+        "text" : "if unit attacked, inflicts %s on foe and foes within 2 spaces of target through their next actions",
         "flavor" : [
-            { "Def/Res-7 on" : 1 },
-            { "Atk/Spd-7 on" : 1 },
-            { "Atk/Spd/Def/Res-7 on" : 2 },
-            { "[Deep Wounds] on" : 3 },
-            { "[Gravity] on" : 3 },
-            { "[Panic] on" : 3 },
-            { "Special cooldown count+1 on" : 5 },
-            { "status preventing counterattacks on" : 4 },
-            { "[Guard] on" : 3 },
-            { "[Isolation] on" : 4 }
+            { "Def/Res-7" : 1 },
+            { "Atk/Spd-7" : 1 },
+            { "Atk/Spd/Def/Res-7" : 2 },
+            { "[Deep Wounds]" : 3 },
+            { "[Gravity]" : 3 },
+            { "[Panic]" : 3 },
+            { "Special cooldown count+1" : 5 },
+            { "status preventing counterattacks" : 4 },
+            { "[Guard]" : 3 },
+            { "[Isolation]" : 4 }
         ],
         "after" : true,
         "reroll" : 0.4
